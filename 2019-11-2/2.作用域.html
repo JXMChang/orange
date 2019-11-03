@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <button id="btn">1</button>
+    <button id="btn2">2</button>
+    <button>3</button> -->
+    <button id="btn">0</button>
+    <script>
+        /*
+         作用域
+         域：范围 
+         如果有多个script标签，上一个script标签报错是不会影响下面script中的代码执行的
+
+         查找的方式，先看当前的script有没有，没有还会去上一个script标签中查找，如果确实找不到，那么就会报错。
+
+         局部作用域(函数中的执行栈)
+           
+           如果局部作用域中没有变量(var let ),还有形参，会直接找到这个位置，那么会优先形参，是不会去函数外进行查找的
+                var a = 20;
+                function fn(){
+                    alert(a); //undefined
+                    var a = 10;
+                }
+
+                var  a =5;
+                function fn(a){
+                    alert(a);//5
+                    var a = 10;
+                    alert(a)//10
+                }
+                fn(a);
+
+                如果局部作用中有函数还有形参，那么会优先函数体内的函数，并不是形参
+                       var a =function(){}
+           
+         函数
+         形成一个私有作用域
+         形参赋值
+         变量提升
+         作用域是否被销毁
+
+         作用域
+         如果局部作用域中没有变量(var let ),函数，形参的时候，就会查找函数外面的变量，直到window为止。
+                var a = 10;
+              function fn(){
+                console.log(a);
+            }
+            fn();
+
+            如果局部作用域中有只变量(var let ),会直接找这个变量，是不会去函数外进行查找的
+             var a = 20;
+            function fn(){
+                alert(a); //undefined
+                var a = 10;
+            }
+
+            如果局部作用域中有函数,变量(var let)还有形参，那么会优先函数体内的函数，不是形参
+
+             var a = function (){};
+            function fn(a){
+                alert(a);  //function a(){}
+                var a = 10;
+                alert(a); //10
+                function a(){}
+            }
+            fn(a);
+        
+        块级作用域
+        let const = 0；//let 会把花括号变成块级作用域，等效于私有作用域，const值保存块级作用域中
+        btn.onclick = function(){
+            const++;
+            this.innerHTML = const;
+        }
+
+
+
+          this问题
+          事件触发是谁，this就是谁。
+          对象点前面的this
+          window 全局打印this fn()
+
+          function(){
+              console.log(this)
+          }
+          fn()
+          
+          总结：变量提升(预解释或预处理)
+          js在浏览器环境中运行之前，会首先对var和function进行变量提升，其中var只声明不定义，function既声明又定义。(浏览器会给js代码提供一个运行环境，也就是大家所熟悉的栈内存)
+          变量：声明一个变量就是告诉一个浏览器里面有一个变量
+
+          作用域链：首先会形成一个私有作用域，在私有作用域中看有没有a这个属性，
+                   如果没有就要向上一级作用域查找，如果上一级作用域没有，就再向上一级查找，
+                   一直找到window为止，如果window中没有找到就会报错。
+
+           this问题
+           1.在函数中点前面是谁，this指向点前面的那个元素。
+           2.在构造函数中，this指向实例(new obj).
+           3.在回调函数中，this指向window。
+           4.在setimeout和setInter在回调函数中，this指向window。
+           5.在函数中，call，bind，apply，可以修改this的指向。
+           6.全局中的this指向window。
+           7.自执行函数中的this指向window
+
+           重名问题
+            var a = 12;
+             a
+            console.log(a) 12 undefined 
+            重复声明时，变量只声明一次，不会重复声明，然后直接赋值
+
+            let a = 13;
+            var a = 13;
+            console.log(a)// a is not defined
+             a是重复声明时，在es6语法中会进行报错，why？因为es6语法比较严谨，在es3或es5语法中就不会报错，结果会出现undefined。
+
+            带var和不带var的区别
+             var a = 13;
+                 a = 13;
+             console.log(a)// 13 
+
+            闭包：
+            一个函数访问外部变量就是这个变量就是这个函数就叫闭包，我认为函数中的变量不受外界所污染，
+
+            作用：
+               为了储存变量或者参数，内部的变量不被外界所污染，函数的特性之一
+
+               function fn(){
+                   function f(){
+                       console.log(a)
+                   }
+                   return f;
+               }
+               let ff = fn();//fn就形成了闭包环境,fn中的参数或者变量就不会浏览器垃圾
+               console.dir(ff);
+
+               1.函数嵌套函数
+               2.子函数引用父函数的参数或者变量；
+               3.子函数被外界所引用
+               4.父级就形成了闭包环境，父级的参数或者变量就不会被浏览器垃圾回收机制
+               5.打印父级的函数返回值，那么发现，scopes下有个closure，就是闭包
+
+
+
+             闭包应用场景
+            window.onload当页面的所有静态资源加载完成才执行里面的函数
+            window.onload = function(){
+                //console.log(doucment.getElementById("btn"));
+                var i = 0;
+                btn.onclick = function(){
+                    alert(i);
+                    //btn.onclick = null;
+                    i=null;
+                    console.dir(btn.onclick);
+                }
+                btn2.onclick = function(){
+                    console.dir(btn.onclick);
+                }
+                console.dir(btn.onclick)
+            }
+            //console.log(1)
+        */
+        // var i=0;
+        // for(var i=0;i<10;i++){
+        //   function fn(a){
+        //       setTimeout(function(){
+        //           console.log(a)
+        //       },1000)
+        //   }
+        //   fn(i)
+        // }
+        // const btns = document.querySelectorAll("button");
+        // var i=0;
+        // for(;i<btns.length;i++){
+        //     console.log(i);
+        //     btns[i].onclick = function(){
+        //         alert(aa);
+        //     }(i) 
+        // }
+
+        // window.onload = function(){
+
+        // }
+        btn.onclick = (function(){
+        var i = 0;
+        return function(){
+            btn.innerHTML = ++i;
+        }
+    })();
+        
+    </script>
+</body>
+</html>
