@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //闭包的定义
+          //1.函数就是闭包(局部变量不被外界所污染)
+          //2.函数可以使用函数之外定义变量(教科书上)
+        //   (function(i){
+        //       btn[i].onclick = function(){
+        //           alert(i);//打印输出i，待栈内存输出完之后，进行回收
+        //       }
+        //       btn[i].onclick =null
+        //   })(i) //某个变量不被浏览器垃圾回收机制回收
+           //3.函数套函数，子函数引用父函数的变量或参数并且子函数被外界所引用这个时候父级就形成闭包机制(父级的执行栈不被销毁)，父级的参数和变量不会被浏览器垃圾机制所回收，
+           //此时打印父级的返回值查看scopes下有个closure，closure就是闭包
+
+           //闭包的应用
+              //保存值完之后就释放这个变量
+            //   ff2=function ff2(){}
+            //   function fn(){
+            //       var i = 0;
+            //       function f(){
+            //           i++;
+            //          console.log(i);//1 2
+            //       }
+            //       function ff2(){   
+            //       }
+            //       console.dir(ff2)//function ff2(){}
+            //           return f;
+            //   }
+            //   let ff = fn();
+            //   ff();
+            //   ff();
+
+              function fff(){
+                  var a = 10;
+                  console.log(++a);
+              }
+              fff();//11
+              fff();//11
+              console.dir(ff)//f(){}
+            //在函数内有变量，不用向全局查找，就是闭包机制。++a是先运算，后递增，a++是先递增后运算。
+           
+            function f(){
+                alert(5);//5
+            }
+            f();
+            ~function(){
+                function f(){
+                    alert(6);//6
+                }
+                f()
+            }();
+            //普通函数和匿名函数里面都有变量，所以都会在私有作用域查找，不会向外界查找，这就是比闭包机制。
+            
+
+    </script>
+</body>
+</html>

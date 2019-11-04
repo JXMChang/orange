@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+         单例模式：
+         单例：是一个单独的实例
+         实例：描述的是一个事务
+         构造函数：抽象一个类的封装过程
+
+         obj = {
+             name:"xxx"
+         }
+
+         高级单例模式：
+         让当前这个实例功能更加强大，还可以隐藏或者暴露细节信息
+          (function(){
+              function sum(){
+
+              }
+              return {
+
+              }
+          })();
+
+          高级单例模式你需要知道什么？
+          1.为什么要使用高级单例？
+            使代码高内聚，低耦合，减少代码的冗余，优化性能，减少占用内存空间
+            解决了命名冲突问题
+            let a = 10;
+            (function(){
+                let a = 20;
+            })()
+
+            命名空间
+            let name = 10；
+             obj.name = 10
+             let name = 20；
+             obj.name = 20
+
+
+          2.高级单例模式如何写？
+          (function(){
+              return {
+
+              }
+          })弄一个变量去接收对象
+          
+          //原始值：字符串，数字，布尔值
+            let name = '珠峰';
+            let name = '珠峰';
+            let ip2 = '回龙观东大街';
+            let age = 10;
+            let name2 = '孟记粥铺';
+            let ip = '回龙观东大街';
+            let age2 = 5;
+            
+          //引用类型(里面让着很多的原始值和引用值)
+           对象(实例)
+           let obj={
+               name:'珠峰',
+               age:10,
+              ip:'回龙观东大街 
+           }
+           console.log(Arry)
+
+           let obj2 = (function(){
+        let name = '珠峰';
+        let ip = '回龙观东大街';
+        let age = 0;
+
+        function sum(){
+            let age = 0;
+            for(let i=0;i<10;i++){
+                age ++
+            }
+            return age;
+        }
+        age = sum();
+
+        console.log(age);
+
+        return {
+            name:name,
+            ip:ip,
+            sum:sum
+        }
+    })();
+
+    let obj3 = (function(){
+        let age = 0;
+
+        function sum(){
+            console.log(1);
+        }
+        sum();
+        // age = sumfn();
+        console.log(obj2.sum());
+    })();
+
+    /*
+        // [].push
+        // ''.substring
+
+        Object.prototype.toString
+        [1,2,3] -> '1,2,3'
+        {} -> '[object Object]'
+    */
+
+   // console.log(obj2)
+    //   let con = {
+    //       log:function(i){
+    //           console.log(i);
+    //           return i;
+    //       },
+    //       dir:function(i){
+    //           console.dir(i);
+    //           return i;
+    //       },
+    //       sum:function(log,dir){
+    //           return log+dir;
+    //       }
+    //       }
+    //   }
+
+    //   let obj2 =(function(){
+    //       let sum = 0;
+    //       function sumFn(log,dir){
+    //           return log+dir;
+    //       }
+    //       return{
+    //           sum:sumFn(5,5)
+    //       }
+    //   })()
+    //   console.log(obj2.sum)//10
+
+      //工厂模式为了批量生产实例，函数目的就是为了复用
+        // let obj={
+        //     name:"zhufeng",
+        //     age:10,
+        // }
+        // let obj2 = {
+        //     name:"mengji",
+        //      age:5,
+        // }
+        // let obj3 = {
+        //     name:"xiachi",
+        //     age:2
+        // }
+
+       // function fn(name,age){
+            // let obj = {
+            //     name:name,
+            //     age:age
+            // }
+
+        //     let obj = {};
+        //     obj.name = name;
+        //     obj.age = age;
+        //     return obj;
+        // }
+        // let obj = fn("zhuf",10)
+        // fn(name,age)
+        // console.dir(obj)
+         
+        //面象对象
+        /*
+         面向对象是一种对现实世界理解和抽象的方法，是计算发展到一定阶段后的产物
+
+         js是一个基于面象对象思想(基于对象的)构造出来的语言
+
+         抽象：就是把重复的代码调出来，放到公共的区域里，反复调用
+
+         类 class
+         直接用构造函数的手法写代码
+         为什么要用面向对象来编程？
+            通过对象来编程,扩展性更强，能够做到高内聚、低耦合
+
+        面向对象:
+            将具有相同特征特性的代码，抽离出来归为一类，然后把
+            描述这个类的细节特性（属性、方法）挂在这个类的原型下
+            的一种编程方式。
+             
+            function sum(name,sex,age){
+                let obj ={};
+                obj.name=name;
+                obj.age=age;
+                obj.sex = sex;
+                return obj;
+            }
+            let p1 = new sum("黄君成，25，男")//实例
+              
+            sum.prototype.say = function(){
+                alert("我叫"+this.name)
+            }
+            let p1 = new sum("黄君成，25，男")；
+            let p2 = new sum("黄智博，25，男")
+            console.log(p1.say == p2.say)false 引用类型比较的是空间地址
+
+            let ary1 = [];
+            let ary2 = [];
+            console.log([]==[])false 引用类型比较的空间地址
+             console.log(ary1.push==ary2.push)true 
+             p1.say();
+             p2.say();
+             console.log(p1);
+       let name = '黄君成';
+        let age = 24;
+        let sex = '男';
+
+         let name = '黄智博';
+         let age = 24;
+          let sex = '男'
+        */
+
+        //new 一个实例
+        /*
+         new完实例之后返回值是一个对象
+         new完之后this也变成一个实例
+         如果return后面有值，为原始值，返回一个原始值，如果return后面的值是引用类型，返回的值为引用类型。
+          function fn(a){
+              alert(this)//widow
+              console.log(typeof this)//fn{}
+              return [];
+          }
+          new fn();
+          console.log(new fn())
+            let name = '赵炎';
+             let age = 24;
+             let sex = '男';
+
+            let name = '尹德志';
+            let age = 84;
+            let sex = '未知'
+        */
+
+        //原型链
+         /*
+           在js中，所有的class(类)都是函数模拟出来的
+           当声明一个函数的时候，这个函数自身有一些属性或者方法(天生自带)
+           其中有一个属性叫做prototype,它的** 值为对象 ** 
+        这个prototype就叫原型，也就是说函数身上才有原型
+        *** 函数原型下的属性或者方法只给它(构造函数)的实例化对象使用。
+        Obejct.prototype.__proto__ 为null，找到Obejct的原型下如果没有某个属性或者方法就真的没有了
+        原型链:
+            __proto__  实例化对象下都有 __proto__ ，
+            这个属性全等于 实例的构造函数的原型
+
+            function fn(){
+
+            }
+            fn.prototype.say=10
+            fn.prototype.aa = function(){}
+            console.dir(fn.prototype);
+
+
+
+             function Fn(){
+                   function Fn(){
+                   this.a = 10;
+                 }
+              Fn.prototype.a = 20;
+              Fn.a = 30; 
+              Function.prototype.a = 50;
+              let f = new Fn();
+              f.a = 40;
+              console.log(f.a);
+              console.dir(Fn.a);
+         */
+
+          //面象对象
+          /*
+           实例有原型链，函数有原型，原型又是一个对象，对象他就是实例，
+           实例又有原型链，找到构造函数的原型，Object.prototype._proto_=null
+           function Cat(name){
+               this.name = name;
+               this.foot = "4只"；
+               this.body = "小"；
+               this.weiba = true;
+               this.mao = "毛"；
+               this.zhuazi = "小爪子"；
+               Cat.prototype.say = function(){
+                   alert("抓老鼠")；
+               }
+               let kitty = new Cat("kitty");//实例
+               Object.prototype.skill = 8;
+               console.log(kitty.skill)
+           }
+           console.dir(killty)
+          */
+    </script>
+</body>
+</html>

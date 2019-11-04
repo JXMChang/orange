@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+          单例模式：
+          单例：单独的实例
+          实例：描述具体的是一个事务
+          构造函数：抽象一个类封装的过程
+          
+          //对象(实例)
+          let obj={
+              name："obj"，
+              age:10，
+              ip:"回龙观大街"
+          }
+
+          高级单例模式
+           让当前这个实例功能更加强大，还可以隐藏或者暴露细节信息
+           高级单例你需要知道写法
+           高级单例解决了匿名的冲突的问题
+
+           解决命名冲突问题
+           1.封闭空间 （把变量或者函数放到函数中）
+             let a = 10;
+             (function(){
+                 let a =20;
+             })()
+           2.命名空间
+             let name = 10；
+
+             工厂模式为了批量去生产实例
+
+             函数的目的就是为了复用
+
+             面象对象思想
+             面象对象是一个发展一定阶段的计算机的产物。
+             将具有相同特征特性的代码归为一类，然后把描述这个类的细节特性(属性和方法)，是挂在这个类的原型下的一种编程方式。
+
+             抽象
+              抽出像的部分(把相同的代码抽离出来)
+
+            类 class
+            换了一种写法去写代码
+           
+            为什么要用面向对象来编程？
+            通过对象来编程，因为面象对象扩展性更强，能做到高内聚，低耦合。
+
+            构造函数(类)
+
+            实例
+
+            js 是一个基于面象对象出来的编程方式
+
+            function person(name,age,sex){
+                let obj = {};
+                obj.name ="黄君成"
+                obj.age = "24"
+                obj.sex = "男"
+                return obj;
+            }
+            console.log(obj)
+
+            obj = {
+
+            }
+
+        使用new之后，函数默认返回值为实例化对象，就不会是undefined
+        如果return后面有值，为原始类型，返回结果还是实例，如果return后面的值为引用类型，返回的结果就是return后的引用类型
+
+        原型
+        在js中，所有的class(类)都是函数模拟出来的，当声明一个函数的时候，这个函数自身有一些属性或者方法(天生自带的)其中有一个属性叫做prototype，它的值为对象，这个Protype就叫原型，也就是说函数身上才有原型，函数原型下的属性或者方法只给它的实例化对象使用
+
+        原型链
+        ——proto—— 实例化对象下都有——Proto——，这个属性全等于实例的构造函数的原型
+
+         function cat(){
+             this.foot ="4";
+
+         }
+          
+
+        
+
+
+        */
+        Angelia:
+    function Fn(){
+        this.a = 10;
+    }
+    Fn.prototype.a = 20;
+    Fn.a = 30; 
+    Function.prototype.a = 50;
+    let f = new Fn();
+    f.a = 40;
+    console.log(f.a);//40
+    </script>
+</body>
+</html>
