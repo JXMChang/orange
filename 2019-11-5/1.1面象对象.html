@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        面向对象：封装，继承，多态，面向对象的特征
+
+        封装就是归类的过程
+        换了一种编程的方式：把具有相同特征特性的代码归为一类(类)
+        把描述这个类的特性(共有属性，方法)挂在这个类的原型下的一种编程方式
+
+        new 函数的一元运算符，只能运算函数
+           1.this变成了实例
+           2.默认return实例，如果手动设置了返回值，如果原始类型的那么还是实例，如果引用类型的返回值就是引用类型
+           3.加不加括号都能执行函数，括号主要为了传参
+           4.首字母大写
+
+           原型：
+           当声明函数的时候，函数天生自带一个属性
+           Prototype(key):{}(val)
+
+           prototype下的方法或者属性只能通过俩种方式使用：
+             1.给自己的实例化对象使用new fn().a
+             2.直接使用fn。prototype.a
+
+             原型链：
+             实例化对象都有一个叫做_proto_的属性，它的值全等于构造函数的原型
+
+             如果某个原型下没有想要的属性或者的方法，那么还会通过这个原型下的原型链继续查找，直接找到Object.prototype为止，因为Object.Protoype为止
+             因为Object.prototype._proto_为null
+
+             new调用构造函数和普通调用的区别
+
+             function Teacher(name,age,subject,from){
+                 this.name = name;
+                 this.mission ="修仙";
+                 this.age = age;
+                 this.subject = subject;
+                 this.from = from;
+                 this.teach = function(){
+                     console.log("${name} 老师教${subject}学科");
+                 }
+                 //上面这种通过 this.xxx=xxx的方式直接向实例上添加的属性成为私有属性
+             }
+
+             //普通函数执行
+             let t1 = Body("黄君成"，18，"js","珠峰");
+             console.log(t1);//undefined
+
+             let t2 = new Body("黄智博"，19，"js","珠峰");
+             console.log(t2);/Body{neam:....}
+
+             普通对象执行的过程：
+             1.新开辟栈内存作为执行的作用域
+             2.形参赋值
+             3.私有作用域变量提升
+             4.代码从上往下执行
+             5.释放栈内存
+
+             new调用时
+             1.开辟一个栈内存
+             2.形参赋值
+             3.变量提升
+             4.创建一个实例对象，并且把当前构造函数中的this指向这个实力对象。
+             5.执行函数体中的代码，当遇到this.xxx=xxx时就是在向实例对象上增加属性；
+             6.隐式返回实例对象
+             7.释放栈内存
+
+             原型对象
+             原型prototype：每一个函数(普通函数，构造函数[类]都天生自带一个prototype(原型)。这个属性的值是一个对象，用来存储当前类型的共有的属性方法。保存原型上面的属性和方法称为公有属性或公有方法)
+             //如何检测属性公有还是私有？
+             hasOwnProperty()方法：检测某个属性是否是对象的私有属性，如果是私有属性，返回true，否则返回false；
+             var  r1 = t1.hasOwnProperty("name");//true
+             var r2 = t2.hasOwnProperty("touch");//false
+
+
+             原型链：对象的属性查找机制
+
+              每一个实例都有一个属性_proto_属性，它指向当前实例所属类的Prototype对象。当我们放访对象的一个属性时，如果有，就使用私有属性，如果没有通过实例_proto_找到实例所属的类的prototype(原型上)查找，如果找到
+              就使用protype上的属性，如果还没找到，就通过prototype的_proto_,继续向上查找，一直找到object的prototype就停止查找。如果还没找到就返回undefined。
+
+              函数的三种角色
+               function fn(){}
+               函数：能够调用的角色
+               构造函数： new构造对象的
+                          fn.prototype 公共的属性或者方法挂在这个构造函数的原型下
+                Function的实例
+                new Function ->function(){}
+                在函数的原型下有一个属性，constructor，这个属性指向构造函数当时当前的constructor并不是100%准确的，他的指针仅仅只是一个指向构造函数的方向(一个参考)，非常容易被修改
+                
+                Fn.prototype = {}
+                注意的是在对象赋值给构造函数原型的时候，constructor指向会被修改指向的是Object，所以手动修正constructor指向
+                Fn.prototype={
+                    constructor:Fn
+                }
+                function Fn(){
+
+                }
+                Fn.prototype ={
+                    constructor:Fn//手动修改constructor的指向。
+                    //object 
+
+                }
+                console.log(new Fn)
+
+                this问题
+                1.在全局作用域中，this指向window
+                 function fn(a,b){
+                     console.log(a,b)；
+                     console.log(this);
+                 }
+                 fn(1,2)//this ->window
+                2.定时器setimeout,setInterval,在函数中this指向window。
+                  var obj ={
+                      bg:function(a,b){
+                          console.log(this)
+                      }
+                  }
+                  console.log(obj.fn(1,2),setimeout)
+
+                3.在自执行函数中，this指向window
+                  (function fn(a,b){
+                      console.log(this)
+                  })
+                  fn(1,2) this->window
+                4.在函数中，call，aplay，bind，改变this的指向
+                 var obj ={
+                     id:"1342"
+                 }
+                 fe.call(obj,2,5)//call改变this的指向
+                5.构造函数中的this，指向当前的实例
+                6.箭头函数中的this是箭头函数声明时所在作用域中的this。
+
+             链式调用
+             let ary = [1,2,3]
+             Arry.prototype.mypush = function(...arg){
+                 let nary = this.concat(arg);
+                 let ps = nary.length;
+                 for(let i=0;i<ps;i++){
+                     this[i] = nary[i];
+                 }
+                 return ps
+             }
+             console.log(ary.mypush(4,5,6));//[1,2,3,4,5,6]
+             console.log(ary);//[1,2,3,4,5,6]
+
+             链式调用
+             console.log(ary.concat[4,5,6]).concat([7,8]))//[4,5,6,7,8]
+             
+             Array.prototype.myconcat = function(...arg){
+               return [...this,...arg.flat(Infinity)];
+           }
+             console.log(ary.myconcat([4,5],[6,7]).myconcat([8,9]))
+
+
+        */
+         
+         function Foo(){
+            getName = function(){
+                alert(1);
+            };
+           return this;
+        }
+
+        Foo.getName = function (){alert(2);};
+        Foo.prototype.getName=function () {alert(3);};
+        var getName = function (){ alert(4);};
+        function getName(){alert(5);}
+
+        Foo.getName(); //2
+          getName(); //4
+          Foo().getName();//1
+          new Foo.getName(); //2
+          new Foo().getName();//3 
+          new new Foo().getName();//3
+    </script>
+</body>
+</html>
