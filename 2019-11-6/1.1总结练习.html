@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    /*
+    普通函数
+    普通函数代码从上往下执行，提出重复的代码，然后进行函数封装放在公共区域，进行复用，减少代码冗余。
+
+    构造函数
+     this实例
+     默认return实例
+     在类里面一般都是添加属性
+
+     原型和原型链：
+     函数走原型(构造函数的实例)
+     实例走链(实例找不到某个属性或者方法就走链)
+     {name："xxx"}->this.name = "xxx";
+     obj.name = "xxx"->new Fn().name="xxx";
+
+     obj._proto_->Fn.prototype->Fn.prototype._proto_->Object.prototype
+       
+     实例
+     new Function -> function
+     new构造函数
+     function (){
+         this.name = "黄智博"
+     }
+     
+     function Fn(){this.a="黄智博"}
+     Fn.prototype
+    */
+    var fun = function(){}
+ 
+ fun.prototype = {    
+     name : 'peter',    
+     age : 25    
+ }
+  
+ var a = new fun();
+ var b = new fun();
+ console.dir(a.name, b.name);//peter peter 通过 -proto-找到fun.prototype
+ fun.prototype.name = 'jack';
+ console.dir(a.name, b.name);// jack jack
+ fun.prototype = {};
+ fun.prototype.name = 'tom';
+ console.dir(a.name, b.name);//jack jack
+ b.constructor.prototype.name = 'kitty';
+ console.dir(a.name, b.name);//jack jack
+ 
+
+var F = function(){}
+Object.prototype.a = function(){
+console.log('a()')
+}
+Function.prototype.b = function(){
+console.log('b()')
+}
+var f = new F()
+ F.a()
+ //Function->_proto_->Function.prototype所以找到了b(),Function.prototype->_proto->object.prototype所以找到了a()
+F.b()//b()
+//通过F查看了一下本身，本身没有找Fn.prototype找到了b()
+ f.a()//通过调用构造函数的实例 FN->_PROTO_>FN.PROTOTYPE找到了a()
+ f.b()//b()
+
+//obj._proto_->Fn.prototype->Fn.prototype._proto_->Object.prototype
+
+
+function Parent() {
+            this.a = 1;//window
+            this.b = [1, 2, this.a];//this.b = [1,2,1]
+            this.c = { demo: 5 };//window
+            this.show = function () {
+                console.log(this.a , this.b , this.c.demo );//1,[1,2,1],5
+            }
+        }
+function Child() {
+    this.a = 2;//1
+    this.change = function () {
+        this.b.push(this.a);//parent.this.b
+        this.a = this.b.length;
+        this.c.demo = this.a++;
+    }
+}
+        Child.prototype = new Parent(); 
+        var parent = new Parent();
+        var child1 = new Child();
+        var child2 = new Child();
+        child1.a = 11;
+        child2.a = 12;
+        parent.show();//1,[1,2,1],5
+        child1.show();//true    child.prototype.constcourstor ===child
+        child2.show();//true   child.protype->_proto_->parent->parent.protype->_proto_->parent
+        child1.change();// 11 [1,2,1] 5 在构造函数中child下的a的属性有值是11，this.b在this.change中没有就会向child函数中查找，而child函数中也没有，就向parent函数查找，发现有而且是一个数组，并且数组前俩项已经是常量
+        //不可修改，而数组中的this.a已经被执行过一次，所以this.a的值还是1，this.c.demo，在change和child函数中也没有，也需要向上一级查找，直接找到了parent找到了this.c.demo的属性是一个对象，所以是5.
+        child2.change();//12 [1,2,1] 5
+        parent.show();//1,[1,2,1],5
+        child1.show();//5[1,2,1,11]5
+        child2.show();//6[1,2,1,11,12]5
+    
+     /*
+     本题考点：
+     this的指向问题
+     原型机制原型链
+     原型类型和引用类型的区别
+
+     解题须知的知识点细节
+     
+     1.构造函数，都有一个prototype属性，指向构造函数的原型对象，实例会共享同一个原型对象
+
+     2.实例生成时，会在内存中产生一块新的堆内存，对实例的一般操作将不影响其他实例，因为堆内存的空间地址不同所以不互相影响；
+
+     3.每一个实例都有一个隐式原型——proto——指向构造函数的原型对象
+
+     4.this的指向问题
+     4.1作为对象方法时，谁调用谁就指向谁
+     4.2作为函数调用时，指向全局变量window
+     4.3构造函数调用时，new操作符生成实例，this就指向当前这个实例
+     4.4 call apply方法中的this板顶为指定的上下文
+
+     5.字面量方式是进行对象和数组赋值(数组本身也是个对象)，都是引用类型，在堆内存生成资源，在栈内存生成变量，然后这个变量指向资源的地址
+
+     6.原型路径：object->_proto_->object.protope->constcroutor(_proto_)->Fn->Fn.protope
+
+     7.赋值语句对于原始值赋值和引用类型赋值的区别    
+     */
+     function Person(name){
+      this.name=name;
+}
+ 
+Person.prototype.share=[];
+ 
+Person.prototype.printName=function(){
+    alert(this.name);
+}
+ 
+var person1=new Person('Byron');
+var person2=new Person('Frank');
+ 
+person1.share.push(1);
+person2.share.push(2);
+console.log(person2.share); //[1,2]
+//person1实例->person原型->Person.prototype.share->[1]->person2实例->person原型->Person.prototype.share->[1,2]
+
+
+function Person(name){
+    this.name=name;
+}
+ 
+Person.prototype.share=[];
+ 
+var person=new Person('Byron');
+person.share=0;
+console.log(person.share); //0；而不是prototype中的[]
+//预解析->person=new Person('Byron')->person实例->person->person.share=0->0
+
+
+function foo() {
+    this.add = function (x, y) {
+        return x + y;
+    }
+}
+ 
+foo.prototype.add = function (x, y) {
+    return x + y + 10;
+}
+ 
+Object.prototype.subtract = function (x, y) {
+    return x - y;
+}
+ 
+var f = new foo();
+alert(f.add(1, 2)); //3 预解析->f实例->Foo->this.add指向实例->return后面返回什么就是什么
+alert(f.subtract(1, 2)); //-1 预解析->f实例->Foo->_proto_->Foo.prototype->_proto_->object.prototype->-1
+ 
+    </script>
+</body>
+</html>

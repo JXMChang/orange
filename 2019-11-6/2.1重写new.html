@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        call(that,多个传参)
+        apply(that,只能传2个参)
+        bind(that,多个传参)
+
+        共同特点：第一个参数都是改变this的指向，函数都是天生自带的
+        null undefined(无效的)传了这2个参数都是给了window
+
+        1.this是实例
+        2.默认return实例，如果return为引用类型就为引用类型
+        3.实例的原型链 ===构造函数的原型
+        4.可以不加括号使用
+        */
+
+         function Fn(name){
+             this.name = name;
+             //console.log(this);//this指向实例
+             //return function(){}
+         }
+
+         let f = New(Fn,"黄君成");//->new Fn()
+         console.log(f.constructor);//Fn
+
+         function New(fn,...arg){
+             let obj = new Object;//实例
+             let callback = fn.call(obj,...arg);//把构造函数的实例改成对象
+
+             //实例的原型链等于构造函数的原型；
+             obj._proto_ = fn.prototype;
+             //要么是个对象类型，要么就是函数
+
+             if(callback !== null && typeof callback){
+                 return callback;
+             }
+             return obj;
+         }
+    </script>
+</body>
+</html>
