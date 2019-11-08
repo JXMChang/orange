@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <button class="active" index="0">按钮一</button>
+        <button index="1">按钮二</button>
+        <button index="2">按钮三</button>
+        <div class="show">11111</div>
+        <div>22222</div>
+        <div>33333</div>
+    </div>
+    <script>
+        function Tab(id){
+            this.box = document.getElementById(id);
+            this.btns = this.box.querySelectorAll("button");
+            this.divs = this.box.querySelectorAll("div");
+            this.prevIndex = 0;
+        }
+        Tab.prototype.events =function(){
+            let_this =this;
+            //遍历index并添加点击事件
+            this.btns.forEach((element,index)=> {
+                element.onclick = function(){
+                    //把index传给构造函数
+                    _this.change(index);
+                }
+            });
+        }
+        //函数就是一个功能，把功能挂在构造函数的原型上
+         Tab.prototype.change = function(index){
+             this.clear();
+             this.changeStatus();
+             this.prevIndex = index;
+         }
+         Tab.prototype.changeStatus = function(){
+             //给btton和div互绑定
+             this.btns[index].className = "active";//当前点击的元素按钮
+             this.divs[index].className = "show";
+         }
+         Tab.prototype.clear = function(){
+             //清空div和btton
+             this.btns[this.prevIndex].className = "";
+             this.divs[this.prevIndex].className ="";
+         }
+         let t = new Tab("box")//new一个实例
+         t.events();
+    </script>
+</body>
+</html>

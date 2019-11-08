@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        如果不是赋址，是赋值就解决了这个问题
+        Object.assign 浅拷贝
+        Object.assign(obj2,obj1,obj0)
+        从右往左浅拷贝对象的属性，可以放若干对象
+        
+        let prototype1 = {
+        say(){
+            console.log('我叫xxx');
+        }
+    }   
+    let prototype2 = {} 
+
+    prototype2 = prototype1; //赋址关系
+
+        let prototype.aaa =10;
+        for(let attr in prototype1){
+            //for in 会枚举当前对象原型下的属性或方法，使用hasOwnProperty就能只找对象自身的属性
+            if(prototypel.hasOwnProperty(attr)){
+                 //把p2的赋值 = p1
+                prototype2[attr]=prototypel1[attr];
+            }
+        }
+         Object.assign(prototype2,protype1);//p1下面的属性给到了p2
+         console.dir(Object)//object挂载assign的方法
+
+         prototype2.say = function(){
+             console.log("我是警察")
+         }
+          console.log(prototype2)
+
+          prototype1.say(); 
+          prototype2.say();
+
+          2个引用类型的赋值就是赋值地址
+          原型类型的赋值就是普通赋值了；其实赋值引用类型的目的是B拿到A下面的属性
+
+          如何才能避免赋址呢？
+          1.需要2个不同地址
+          2.B地址下拥有A地址下的原始类型的数据即可(原始类型的赋值)
+
+
+          let ary = [1,2,3[1]];
+          let ary2 = ary;
+          let ary = [];
+
+          //浅拷贝(克隆)
+          for(let i=0;i<ary.length;i++){
+              //原始数据类型的赋值就是简单赋值关系，不会赋值地址1，2，3
+              ary2[i]=ary[i];//如果数组中还包有引用类型，那么赋值地址
+          }
+          ary2.push(5);[1,2,3[1],5]
+           ary2[3].push(2)[1,2,3[1],2]
+           console.log(ary)//1,2,3,5
+          
+           //深克隆
+           function deepclone(obj){
+               //看obj是否是对象，不是就不执行deepclone
+               if(typeof obj !== "object"&& obj!==null)return null;
+               let o = obj.push?[]:{}//确认传进来的值到底是数组还是对象；
+               for(let attr in obj){
+                   //如果碰到了引用类型就继续循环，原始类型才赋值
+                   if(typeof obj[attr]==="object"){
+                       o[attr]= deepclone(obj[attr]);
+                   }else{
+                       o[attr] = obj[attr];
+                   }
+               }
+               return o;
+           }
+
+           JSON.parse(JSON.stringify(ary))
+           let ary2 = deepclone(ary)
+           ary2[3][0][0][0][0][0][0][0][0][0].push(4);
+           console.log(ary2)
+
+            浅拷贝:
+        Object.assign(obj2,obj1,obj0)    
+
+        最后改变的是obj2，obj1是不会被修改的
+
+    let obj = {
+        name:'阿里',
+        age:10
+    }
+    let obj2 = {
+        sex:'男',
+        name:'zf',
+        age:5
+    }
+    let obj3 = {
+        aa:8
+    }
+
+    //把obj3,obj2,obj的内容赋值到{}中
+    let obj4 = Object.assign({},obj3,obj2,obj); //越往右边层级越高
+
+    console.log(obj4);//undefined
+
+
+    class Person {
+        static eat(){ //静态方法。只有类才能调用，实例是调用不到的
+            console.log('吃饭');
+        }
+        constructor(name,age) {
+            this.name = name;
+            this.age = age;
+        }
+        say(){
+            alert(`我的名字叫`+this.name);
+        }
+    }    
+   
+     class Police extends Person {
+        //在继承的constructor中，如果要使用this，一定要写super
+        constructor(job,...arg) { //剩余运算符 ['xxx',19]
+            // console.log(this);//super的上面是拿不到this的
+            super(...arg);//扩展运算符
+            this.job = job;
+        }
+        say(){
+            console.log('我是警察');
+        }
+    }
+
+    let p2 = new Police('警察','xxx',19);
+    let p1 = new Person('yyy',18);
+    // p2.say();
+    // p1.say();
+    // console.log(p2);
+
+
+    // Police.eat()
+
+
+
+    */
+    </script>
+</body>
+</html>

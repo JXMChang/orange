@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        面象对象的特征 ： 封装 继承 多态
+        
+        继承： 子类具有父类的一部分特征(这部分特征是在父类继承出来的)
+
+        人：行走，警服 开警车
+
+        继承的写法让代码量减少很多，从而达到高内聚，低耦合，减少了开发成本
+
+        继承方式有很多
+          类式继承（call继承）
+          原型继承
+          寄生组合继承
+          拷贝继承
+          对象继承
+          class继承
+
+          继承的结果和方法，能够继承父类的属性和方法
+
+          继承属性和方法
+          调用父类，通过call把this变为子类的实例即可
+
+          方法继承：
+          通过浅拷贝，把父类上原型的方法或者属性都赋值给子类的原型
+          
+
+          function police (name,age){
+              this.name = name;
+              this.age = age;
+          }
+          Person.prototype.say = function(){
+              alert("我的名字叫"+this.name);
+          }
+
+          let p1 = new  Person("刘成"，18)；
+         // p1.say(); p1是个实例->-proto- ->person->-proto- ->Person.prototype找到了"我的名字叫刘成"
+          console.log(p1);"我的名字叫刘成"
+
+          function Police (name,age){
+              this.name = name;
+              this.age = age;
+              this.job = "警察";
+          }
+          plice.protype.say = function(){
+              alert("我的名字叫"+this.name);
+          }
+          plice.prototype.kongfu = function(){
+              console.log(this.name+"弄某炎");
+          }
+          let p2 = new police("赵炎"，100)
+          //p2.say();p2是个实例->-proto- ->police ->-proto- ->police.prototype "我的名字叫赵炎"
+          //p2.kongfu()p2是个实例->-proto- ->police ->-proto- ->police.Protoype 
+
+          面象对象的特征： 封装，继承，多态
+
+          继承 ：子类具有父类的一部分特征(这部分相同的特征是从父类继承下来的)，自己还是自己的特征
+
+          继承方式有很多：
+          类式继承(call继承)
+             class Colorpoint extends Point {
+                          constructor(x,y,color){
+                          super(x,y); //调用父类的constructor(x,y)
+                          this.color = color
+                }
+                toString(){
+                    //调用父类的方法
+                    return this.color + ' ' + super.toString(); 
+                }
+            }
+                    
+          原型继承
+          function superType(){
+              this.property= true;
+          }
+          SuperType.prototype.getSuperValue = function(){
+              return this.property;
+          }
+          function SubType(){
+              this.subproperty = false;
+          }
+          //通过创建superType的实例继承了superType
+           Subtype.prototype.getSubValue = function(){
+               return this.subproperty;
+           }
+           var instance = new subType();
+           alert(instance.getSuperValue()); //true
+          寄生式组合继承
+          function inheritPrototype(subType, superType) { 
+             var prototype = Object.create(superType.prototype);  // 创建对象 
+             prototype.constructor = subType；　　　　　　　　　　　　// 增强对象 　　　　　　
+             subType.prototype = prototype；　　　　　　　　　　　　  // 指定对象 
+            }
+          拷贝继承
+          对象继承
+          class继承
+
+          继承属性
+          调用父类，通过call把this变为子类的实例即可(call继承)
+             function Police (name,age){
+             //this ->实例
+              Person.call(this,name,age);
+              console.log(this)
+             }
+
+             方法继承：
+             通过浅拷贝，把父类上的原型的方法或者属性都赋值给子类的原型
+             Object.assigin(子类.Protype,父类.prototype)
+
+             //函数，类，实例
+             function Person(name,age){
+                 this.name = name;
+                 this.age = age;
+                 console.log(this);
+             }
+             Person.prototype.say = function(){
+                 alert("我的名字叫"+this.name)；
+             }
+             function Police (name.age){
+                 //this->实例
+                 Person.call(this,name,age)
+             }
+             //下面这种写法是不可取的，因为2个原型赋址了，修改A就会影响B
+             //Police.prototype.say = function(){
+                 alert("我是警察");
+             }
+             let p2 = new Police("赵炎"，100)；
+             let p = new Person("刘成"，18);
+             p2.say();p2实例->_proto_->police->_proto_->police.protype
+             p.say()p实例->_proto_->person->_proto_->person.protype
+
+
+        */
+
+    </script>
+</body>
+</html>
