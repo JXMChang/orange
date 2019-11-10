@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/1.css">
+</head>
+<body>
+    <section class="box">
+        <nav>
+            <span>排序</span>
+            <a herf="javascript:void(0);" data-name="time">
+                <i class="up"></i>
+                <i class="down"></i>
+                上架时间
+            </a>
+            <a herf="javascript:void(0);" data-name="time">
+                <i class="up"></i>
+                <i class="down"></i>
+                热度
+            </a>
+            <a herf="javascript:void(0);" data-name="time">
+                <i class="up"></i>
+                <i class="up"></i>
+                价钱
+            </a>
+            <div>
+                <select  id="sele">
+                    <option value="title">按照文字搜索</option>
+                    <option value="title">按照热度搜索</option>
+                    <option value="title">按照价格搜索</option>
+                </select>
+                <div id="num" class="hide">
+                    从<input type="text" id="start">
+                    到<input type="text"id="end">
+                </div>
+                <div id="txt" class="show">
+                    <input  type="text" id="txt1">
+                </div>
+                <button id="search">搜索</button>
+                <button id="search">还原</button>
+            </div>
+        </nav>
+         <ul class="list" id="ul">           
+         </ul>
+    </section>
+    <script>
+         fetch("./json/product.json")
+         .then(d=>d.json())
+         .then(data=>{
+          console.log(data);
+          let newdata = data.concat();
+          //渲染数据
+          function render(newdata){
+              //list就是数据生成的结构
+              let lis = newdata.map(({title,img,price,time,hot},i)=>{
+                  return (
+                      `<li>
+                        <img src="${img}" alt="">
+                        <p
+                          titlie="${title}"
+                          >商品名称:<span>${time}</span><p>
+                        <p>上架时间:<span>${hot}</span></p>
+                        <p>商品价格::<span>${price}</span></p>
+                        </li>`
+                  );
+              }).join("");
+              ul.innerHTML = lis;
+          }
+          render(newdata);
+          const as = document.querySelectorAll("a");
+          as.forEach((ele,i)=>{
+              ele.onoff = true;//默认为从小到大
+              ele.onclick = function(){
+                  if(this.onoff){
+                      newdata.sort((a,b)=>{
+                          if(this,dataset.name ==="time"){
+                              return new Date(a.time)- new Date(b.time)
+                          }
+                          //否则按照数字相减的方式
+                          return a[this.dataset.name]-b[this.dataset.name];
+                      })
+                      this.children[1].classList.remove("actived");
+                      this.children[0].classList.add("active");
+                  }
+                  this.onoff = !this.onoff;
+                  render(newdata)
+              }
+          });
+          //搜索
+          const start = document.querySelector("#start");
+          const end = document.querySelector("#end");
+          const btn = document.querySelector("#sele");
+          const sele = document.querySelector("txt1")
+
+          btn.onclick = function(){
+              let {value:v1}= start; //let v1 = start.value;
+              let {value:v2} = end;
+              let {value:v4} = txt1;
+
+              if(v4 || v1 && v2){
+                  let {value:v3} = sele;//要搜索的关键字
+              }
+              let d = null;
+              if(v4){//搜文字
+                d= data.filter(item=>{
+                    return item[v3].includes(v4);
+                })
+              }else{
+                  d = data.fliter(item=>{
+                      return item[v3]>=v1 && item[v3] <= v2
+                  })
+              }
+              render(d);
+              console.log(v3);
+
+              //还原数据
+              init.onclick = function(){
+                  render(data);
+              }else{
+                alert('请正确输入搜索内容');
+            }
+        };
+        //当内容改变的时候触发这个事件
+        sele.onchange = function(){ 
+            txt1.value = start.value = end.value = '';
+            // console.log(1);
+            let {value} = this;
+            if(value === 'title'){
+                num.className = 'hide';
+                txt.className = 'show';
+            }else{
+                num.className = 'show';
+                txt.className = 'hide';
+            }
+        }
+          }
+         })
+    </script>
+</body>
+</html>
