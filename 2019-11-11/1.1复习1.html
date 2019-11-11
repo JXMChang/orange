@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        基本数据类型： Number string null undefined Boolean
+        引用数据类型： object 正则 function 数组 时间 日期
+        区别 ：基本类型是操作值的，引用类型是操作空间地址的
+
+        undefined特殊情况：
+        1.通过id获取元素，如果获取不到，返回值是undefined;
+        2.在函数中有形参没实参，返回值为undefined;
+        3.在函数中，如果return没有返回值，返回的结果为undefined；
+        4.再创建一个变量，如果没有赋值，返回值为undefined。
+
+        null特殊情况：
+        1.通过正则捕获时，如果捕获不到返回值为null；
+        2.通过id的属性名，获取元素时，如果获取不到为null；
+        3.如果需要销毁对象的堆内存，那么给对象赋值为null；
+        */
+    //    let num = 123;
+    //    num.a = 10;
+    //    console.log(num.a)//undefined
+       //let是Es6语法不需要进行变量提升，所以不进行预处理，num.a是在全局中，所以在全局中新增键值对，所以num.a为undefined
+        
+    //    let ary2 = [];
+    //    for(let i=0;i<ary.length;i++){
+    //        ary2[i] = ary[i];//把ary[i]的空间地址赋值给ary2[i]
+    //    }
+
+    //  function deepClone(ary){
+    //      let ary2 = [];
+    //      for(let i=0;i<ary.length;i++){
+    //            if(ary[i] !== null && typeof ary[i]=== "object"){
+    //                ary1[i] = deepClone(ary[i])
+    //            }else{
+    //                ary2[i] = ary[i]; //简单类型就是赋值
+    //            }
+    //            /*
+    //              //ary[i]->有可能是引用类型，但是又不想让这个引用类型赋值
+    //              这个时候就想到，如果引用类型，就继续循环里面的数据
+    //            */   
+    //      }
+    //      return ary2;
+    //  }
+
+     function deepClone(o){
+         let obj = o.push?[]:{};
+         for(let attr in o){
+             if(o[attr] !== null&& typeof o[attr]=="object"){
+                 obj[attr]= deepClone(o[attr])
+             }else{
+                 obj[attr] = o[attr]; //简单类型就是赋值
+             }
+         }
+         return obj;
+     }
+
+     let ary2 =deepClone(ary);
+     ary2.push(4);
+
+     console.log(ary);
+    </script>
+</body>
+</html>

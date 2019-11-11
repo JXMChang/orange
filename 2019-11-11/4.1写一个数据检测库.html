@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        如何检测一个变量是什么类型的？
+        []->typeof "object"
+        object.prototype.tostring.call(数据)
+
+        */
+
+        class Tools {
+            static type(data){
+                //传的是数据，然后通过这个数据检测它的类型
+                if(typeof data !=="object"){
+                    return typeof data;
+                }
+                let obj ={
+                    object:"object",
+                    array:"Array",
+                    null:"null"
+                }
+                let toS = Object.prototype.toString;
+                for(let attr in obj){
+                    if(toS.call(data) === "[object ${obj[attr]}]"){
+                        return attr;
+                    }
+                }
+                //for(let i=0;i<ary.length;i++){
+                 //   if(tos.call(data) === "[object ${ary[i]}]"){
+                   //     return ary[i].toLowerCarse();
+                   // }
+                //}
+            }
+        }
+
+        class Tools{
+            static type(data){
+                if(typeof data !== "object"){
+                    return typeof data;
+                }
+                let obj ={
+                    object:"object",
+                    array:"Array",
+                    null:"null"
+                }
+                let toS = object.prototype.toString;
+                for(let attr in obj){
+                    if(tos.call(data)=== "[object ${obj[attr]}]"){
+                        return attr;
+                    }
+                }
+            }
+        }
+
+        console.log(Tools.type([]));//->[]->"array")
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="css/price.css " />
+</head>
+<body>
+        <div class="wrap">
+                <div class="box">
+                    <ul class="list">
+                        <li>
+                            <i class="btn1"></i>
+                            <em>0</em>
+                            <i class="btn1"></i>
+                            <span>
+                                单价：<strong  class="btn1">12.5元 </strong> 小计：<strong  class="btn1">0元</strong>
+                            </span>
+                        </li>
+                        <li>
+                            <i class="btn2"></i>
+                            <em>0</em>
+                            <i class="btn2"></i>
+                            <span>
+                                单价：<strong class="btn2">10.5元 </strong> 小计：<strong class="btn2">0元</strong>
+                            </span>
+                        </li>
+                        <li>
+                            <i class="btn3"></i>
+                            <em>0</em>
+                            <i class="btn3"></i>
+                            <span>
+                                单价：<strong class="btn3">8.5元 </strong> 小计：<strong class="btn3">0元</strong>
+                            </span>
+                        </li>
+                        <li>
+                            <i class="btn4"></i>
+                            <em>0</em>
+                            <i class="btn4"></i>
+                            <span>
+                                单价：<strong class="btn4">8元 </strong> 小计：<strong class="btn4">0元</strong>
+                            </span>
+                        </li>
+                        <li>
+                            <i class="btn5"></i>
+                            <em>0</em>
+                            <i class="btn5"></i>
+                            <span>
+                                单价：<strong class="btn5">14.5元 </strong> 小计：<strong class="btn5">0元</strong>
+                            </span>
+                        </li>
+                    </ul>
+                    <div class="info">
+                        <span>商品公合计：<em>0</em>件</span>
+                        <span>共花费了：<em>0</em>元</span>
+                        <br />
+                        <br />
+                        <span>其中最贵的商品单价是：<em>0</em>元</span>
+                    </div>
+                </div>
+<script>
+// 获取元素,通过类名来获取不同的元素组
+let eAry1 = document.getElementsByClassName('btn1'),
+    eAry2 = document.getElementsByClassName('btn2'),
+    eAry3 = document.getElementsByClassName('btn3'),
+    eAry4 = document.getElementsByClassName('btn4'),
+    eAry5 = document.getElementsByClassName('btn5'),
+    // 获取所有的em
+    eEm = document.getElementsByTagName('em'),
+    // 定义元素组集合
+    aryEle = [eAry1,eAry2,eAry3,eAry4,eAry5],
+    // 定义单机集合
+    aryPrice = [12.5,10.5,8.5,8,14.5],
+    // 定义件数集合
+    aryQuantnm = [0,0,0,0,0];
+    // forEach遍历绑定单击事件
+    aryEle.forEach((item,index) =>{
+        // 第一项为减少商品数量
+        item[0].onclick = () =>{
+            // 如果本就是0件就不允许再减少直接退出
+            if(aryQuantnm[index] === 0) return;
+                // 数量改变
+                aryQuantnm[index]--;
+                // 从新计算件数，小计，总件数，总价格以及最贵单机
+                fn(item,index);
+
+        };
+        // 第二项为增加商品数量
+        item[1].onclick = () =>{
+            // 数量改变
+            aryQuantnm[index]++;
+             // 从新计算件数，小计，总件数，总价格以及最贵单机
+            fn(item,index);
+        }
+    });
+
+     // 定义从新计算件数，小计，总件数，总价格以及最贵单机的方法，传入单击元素和元素索引
+    function fn(item,index){
+        // 改变件数
+        eEm[index].innerText = aryQuantnm[index];
+        // 改变小计
+        item[3].innerText = aryQuantnm[index] * aryPrice[index];
+        // 改变总件数
+        eEm[5].innerText = aryQuantnm.reduce((run,item,index) =>{return run+item},0);
+        // 改变总价格
+        eEm[6].innerText = aryQuantnm.reduce((run,item,index) =>{return run+(item*aryPrice[index])},0);
+        // 改变最贵商品单价
+        let indexAry = aryQuantnm.map((item,index)=>{return item===0?null:index});
+        let a = 0;
+             indexAry.forEach(item=> {       
+                if(item !== null && aryPrice[item] > a){
+                        a = aryPrice[item];
+                }
+            });
+            eEm[7].innerText = a;
+       }
+
+    
+</script>            
+</body>
+</html>

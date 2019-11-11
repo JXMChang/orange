@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        call:
+        只要是个函数就有call方法
+        改变this的指向
+        参数：
+        多个参数
+        第一个是修改的this
+        第二个之后实参
+        注意：
+         null，undefined都是数据window
+
+         如何改变this？
+
+         this属于谁 -> 事件触发谁this就是谁，.前面的是谁，this就指向谁
+            
+            document.onclick = function(){
+                console.log(this);
+            }
+            obj.fn()->this是obj
+
+            this就是.前面的主。
+
+            document.xx = function(){
+                console.log(this);
+            }
+            核心：
+            也就是说，只要让一个函数地址，等于某个对象下的方法
+             this自然就变成了那个对象.
+
+             Function.prototype.mycall = function(that,...arg){
+                 let type = typeof that;
+                 if(that === null || that === undefined){
+                     that = window;
+                 }else{
+                     switch(type){
+                         case "string":
+                             that = new Number(that);
+                          break;
+                     }
+                 }
+                 that.fn = this;
+                 that.fn(...arg);
+                 //delete that.fn;
+                 console.log(that);
+             }
+        */
+    </script>
+</body>
+</html>

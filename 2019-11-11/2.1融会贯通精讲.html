@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+         函数 ->局部作用域
+         let var 参数 函数 正常情况下都不会跑外面
+
+         在函数内如果没有变量声明，函数，参数，当前的变量是属于window的
+
+         var a = b = 5;b是指向window的；
+         var a = 5,b=5;//a和b都是局部作用域的
+
+         函数 +括号 函数中的this就是window
+          1.首先形成一个私有作用域
+          2.形参赋值&&变量提升
+          3.代码从上往下运行
+          4.作用域是否被销毁的问题
+           
+
+          1.参数为原始数据类型(函数内运算不会影响外面的)
+          2.参数为引用数据类型(在函数内改变属性值是会影响外面的)
+          3.参数为引用数据类型，参数有赋值另一个引用类型(在复制新地址之后不会影响外面的引用类型)
+        */
+       function Foo(){
+           getName = function (){console.log(1);};
+           return this;
+       }
+       Foo.getName = function(){console.log(2);};
+       Foo.prototype.getName = function(){console.log(3);};
+        var getName = function(){console.log(4);};
+        function getName(){console.log(5);}
+
+        Foo.getName();//2 Foo.getName
+        getName();//4 getName
+        Foo().getName();//1 getName
+        getName();//1 get?name
+        var a = new Foo.getName();//通过实例找Foo，然后找Foo.protype
+        var b = new Foo().getName();//通过实例找Foo，然后找Foo.protype
+        var c = new new Foo().getName//new Foo实例,说明是一个构造函数.生成一个实例化对象，找到Foo，然后在找到Foo.protype，然后找到对象3，然后再new一下，变成一个数字3，，如果再new一下就会报错。
+
+        console.log(a,b,c);//2 3 3
+         
+        let obj ={
+            name:"某智"
+        }
+         let num = 10;
+
+         function fn(o){
+             o.name ="冉某";
+             o ={
+                 name:"彭某"
+             }
+             console.log(o.name);
+         }
+         fn(obj); // 如果实参是个引用类型，那么函数内执行修改这个参数的属性是互相影响的
+
+         console.log(num);//10
+         console.log(obj);//"冉某"
+    </script>
+</body>
+</html>
