@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //把下面str的name，age，say换成obj中的value值
+        let obj = {
+            name:"小明",
+            age:18,
+            say:"好好学习，天天向上"
+        }
+        let str ="我的名字叫{name},年龄是{age}岁，我想说:{say}";
+        //   let i = 0;
+        //   let ary = ["壹","贰","叁"];
+        //   let ste = str.replace(/\${(\w+)}/g,(...arg)=>{
+        //          console.log(arg)
+        //          let [,key] = ary;
+        //          return obj[key];
+        //          return ary[i++];
+        //   })
+        //   console.log(ste)
+
+        let str2 = 'hdd82nxa89a3axdma2naejaaxaa8n2xdanja2cah2hnadhioamwajexnad8mdahiodn';
+           str3 = str2.split("").sort((a,b)=>a.localeCompare(b)).join("");
+        let ary = str.match(/([a-zA-Z])\1+/g).sort((a,b)=>b.length - a.length);
+        let max = ary[0].length,
+            res = [ary[0].substr(0,1)];
+        for(let i =1;i<ary.length;i++){
+            let item = ary[i];
+            if(item.length <max){
+                break;
+            }
+            res.push(item.substr(0,1));
+        }
+        console.log(`出现次数最多的字符：${res},出现了${max}次`);
+        
+            
+           
+    </script>
+</body>
+</html>

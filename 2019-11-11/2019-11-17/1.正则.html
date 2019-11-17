@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        1.验证是否为有效数字
+        规则分析
+        1.可能出现+ - 号，可能不出现[+-]?
+        2.一位0-9都可以，多位首位不能是0(\d[1-9]\d+))
+        3.小数部分可能有也可能没有，一旦后面必须有小数点+数字(\.\d+)?
+        */
+        let reg = /^[+-]?(\d|([1-9]\d+))(\.\d+)?$/;
+
+        //2.验证密码
+        // 数字，字母，下划线
+        // 6-16位
+        let val = userPassInp.value,
+            reg = /^\w{6,16}$/;
+        let flag = reg.test(val);
+         
+        //  function checkPass(val){
+        //      if(val.length<6 || val.length>16){
+        //          alert("长度必须介于6-16位之间！");
+        //          return;
+        //      }
+        //      let area = ["a","b"...."_"];//=>包含数字，字母，下划线
+        //      for(let i=0;i<val.length;i++){
+        //          let char = val[i];
+        //          if(!area.includes(char)){
+        //              alert("格式不正确！");
+        //              return;
+        //          }
+        //      }
+        //  }
+
+        //3.验证真实姓名
+         //1.以汉字的code码 [\u4e00-\u9fa5]
+         //2.名字的长度
+         //3.可能译成汉字
+        //  let reg = /^[/u4e00-/u9fa5]{2,10}(.[\u4e00-\u9fa5]{2,10}{0,2}$/;
+        //  console.log(reg.test(黄君成))
+
+        //4.验证邮箱
+           let reg =/^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-Z0-9]+)*\.[A-Za-z0-9]+$/;
+
+        //分组的第三个作用："分组引用"
+        let str = "book";
+        let reg =/^[a-zA-Z]([a-zA-Z])\1[a-zA-Z]$/;
+        //分组引用就是通过"\数字"让其代表和对应分组出现一模一样的内容
+        console.log(reg.test("book"))//true
+        console.log(reg.test("deep"))//true
+        console.log(reg.test("somme"))//false
+
+       //5.把时间字符串进行处理
+       let time = "2019-08-13";
+       let reg = /^(\d{4})-(\d{2})-(\d{2})$/;
+        
+        //用replace可以实现
+        time = time.replace(reg,"$1年$2月$3日");
+        console.log(time)//2019年08月13日
+        //[str].replace([reg],[function])
+        time = time.replace(reg,(big,$1,$2,$3)=>{
+            console.log(big,$1,$2,$3);
+        });
+        time = time.replace(reg,(...arg)=>{
+            let [,$1,$2,$3]=arg;
+            $2.length<2?$2="0"+$2:null;
+            $3.length<2?$3="0"+$3:null;
+            return $1+"年"+$2+"月"+$3+"日";
+        });
+
+
+        //6.单词首字母大写
+        let str ="good study,day up!";
+        let reg = /\b([a-zA-Z])[a-zA-Z]*\b/g;
+        str = str.replace(reg,(...arg)=>{
+            let [content,$1]=arg;
+            $1=$1.toUpperCase();
+            content = content.substring(1);
+            return $1+content;
+        });
+        console.log(str);
+
+        //7.验证一个字符串中的那个字母出现的次数最多，多少次？
+        let str = "zhufengpeixunzhoulaoshi";
+        let obj ={};
+        [].forEach.call(str,char=>{
+            if(typeof obj[char]!=="undefined"){
+                obj[char]++;
+                return;
+            }
+            obj[char] = 1;
+        });
+        let max = 1,
+        res = [];
+        for(let key in obj){
+            let item = obj[key];
+            item > max ? max = item :null;
+        }
+        for(let key in obj){
+            let item = obj[key];
+            res.push(key);
+        }
+        console.log(`出现次数最多的字符:${res},出现了${max}次`)
+
+        //排序
+        let str = "zhufengpeixunzhoulaoshi";
+        str = str.split("").sort((a,b)=>a.localeCompare(b)).join("");
+        console.log(str)//"aeefghhiilnnoopsuuuxzz"
+
+        let ary = str.match(/([a-zA-Z])\1+/g).sort((a,b)=>b.length-a.length);
+        console.log(ary);//["hhh","uuu","ee","li","nn","oo","zz"]
+        let max = ary[0].length,
+        res = [ary[0].substr(0,1)];
+        for(let i=1; i<ary.length;i++){
+            let item = ary[i];
+            if(item.length<max){
+                break;
+            }
+            res.push(item.substr(0,1));
+        }
+        console.log(`出现次数最多的字符:${res},出现了${max}次`)
+
+        //从最大到最小去试试
+
+        let str = "zhufengpeixunzhoulaoshi"
+          max = 0;
+          res = [];
+          flag = false;
+          str = str.split("").sort((a,b)=>a.localeCompare(b)).join("");
+          for(let i = str.length;i>0;i--){
+              let reg = new RegExp("([a-zA-Z])\\1{"+(i-1)+"}","g");
+              str.replace(reg,(content,$1)=>{
+               res.push($1);
+               max=i;
+               flag = true;   
+              });
+              if(flag) break;
+          }
+          console.log(`出现次数最多的字符：${res},出现${max}次`);
+
+          //其他方法 ：formaTime， queryURLParams, millimeter
+          ~function(){
+              /*
+              @params
+                templete:[string] 我们最后获取日期格式的模板
+                模板规则：{0}->年 {1-5}->月日时分秒
+
+              @return
+               [string]格式化后的时间字符串
+               by zhufengpeixun on 2019/08/13
+              */
+              function forTime(templete ="{0}年{1}月{2}日 {3}时{4}分{5}秒"){
+                  let timeAry = this.match(/\d+/g);
+                  return templete.replace(/\{(\d+)\}/g,(...[,$1])=>{
+                      let time = timeAry[$1] || "00";
+                      return time.length < 2?"0"+time:time;
+                  });
+              }
+          }
+
+          // queryURLParams:获取URL地址问号和面的参数信息(可能也包含HASH值)
+          //@params
+          //@return
+          //[object]把所有问号参数信息以键值对的方式存储起来并且返回
+
+          function queryURLParams(){
+              let obj = {};
+              this.replace(/([^?=&#]+)=([^?=&#]+)/g,(...[,$1,$2])=> obj[$1]=$2);
+              this.replace(/#([^?=&#]+)/g,(...[,$1])=>obj["HASH"]=$1);
+              return obj;
+          }
+
+          // millimeter:实现大数字的浅粉符处理
+          // @params
+          // return
+          function millimeter(){
+              return this.replace(/\d{1,3}(?=(\d{3})+$)/g,content => content+",");
+          }
+
+          //扩展到内置类 string.protype上
+          ["formatTime","queryURLParams","millimeter"].forEach(item=>{
+              String.prototype[item] = eval(item)
+          });
+
+          //手机号
+          let str  = "13691092607"
+              reg = /^1[3-9]\d{9}$/
+              //reg = /^[1-9]\d{4,10}$/
+              console.log(reg.test(str))
+
+            //验证扣扣号
+            //1.扣扣号以1-9开头
+            //2.扣扣是十位
+                let str = 2819135299
+                reg =/^[1-9]\d{2,10}$/
+                console.log(reg.test(str))//true
+           //验证邮箱
+        //        let str = "h18515005385@163.com"
+        //        reg = /^[a-zA-Z][\w.-]{5,17}@[0-9a-zA-Z]{2,10}\.c(om|n)$/;
+        //        console.log(reg.test(str));//true
+
+                    // let  c = "2819135299@qq.com"
+                    // reg = /^[1-9]\d{2,10}@[a-zA-Z]{0,2}.com$/
+                    // console.log(reg.test(c))//true
+
+                 let str1 = "h13691092607@126.com"
+                     reg = /^[a-zA-Z][\w.-]{5,17}@[0-9a-zA-Z]{2,10}\.c(om|n)$/;
+                     console.log(reg.test(str1))//true
+            
+          
+          //除了\n任意的字符
+          let str ="dj1x中8wertyuiop3%6f\n7%vrxbby";
+               console.log(str.match(/.+/g))//["dj1x中8wertyuiop3%6f","7%vrxbby"]
+            
+
+</script>
+</body>
+</html>
