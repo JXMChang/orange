@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            padding: 100px;
+        }
+        #box2{
+            background:red;
+            position: relative;
+        }
+        #box3{
+            position: absolute;
+            background:coral;
+        }
+    </style>
+</head>
+<body style="height:2000px;">
+    <div id="box2">
+        <div id="box3"></div>
+    </div>
+    <script>
+        /*
+        Dom:获取可视区的高度/宽度
+            document.documentElement.clientHeight
+            document.document/element.clienwidth 如果有滚动条，会减去滚动条的宽度
+
+            element.getoundingClientRect()它返回一个对象，这个对象下的绝对位置
+
+            document.documentElement.srcollTop
+        Bom:
+        window.innerHeight/window.innerWidth 如果有滚动条，不会减去滚动条的宽度;
+        window.pagexOffset/window.pageYOffset 滚动条的距离
+        */
+       //console.log(document.document.ClientWidth)
+       console.log(innerWidth)//302
+       console.dir(box3.getBoundingClientRect())//627
+       window.onscroll = function(){
+           console.log(window.pageYOffset)//868
+       }
+    </script>
+</body>
+</html>
