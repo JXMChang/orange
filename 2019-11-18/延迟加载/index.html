@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <section class="box">
+        <nav id="na">
+            <span>排序</span>
+            <a href="javascript:;" data-name='time'>
+                <i class="up"></i>
+                <i class="down"></i>
+                上架时间
+            </a>
+            <a href="javascript:;" data-name='time'>
+                <i class="up"></i>
+                <i class="down"></i>
+                热度
+            </a>
+            <a href="javascript:;" data-name='time'>
+                <i class="up"></i>
+                <i class="down"></i>
+                价格
+            </a>
+        </nav>
+        <ul class="list" id="ul">
+          <!-- <li>
+              <img src="/img/1.jpg" alt="">
+              <p>商品名称<span>华为</span></p>
+              <p>商品上架<span>2017-12-25</span></p>
+              <p>热度<span>123456</span></p>
+              <p>价格<span>4620</span></p>
+          </li> -->
+        </ul>
+    </section>
+</body>
+<script src="tools.js"></script>
+<script>
+    //解决图片的请求问题，是提升网页速度的途径
+    const{log} = console;
+    fetch("./json/product.json")
+    .then(a=>a.json())
+    .then(data=>{
+        let dataCopy = data.slice();
+        log(dataCopy)
+        //渲染函数
+        function render(arr){
+            let str = dataCopy.map(({title,hot,time,price,img})=>{
+                return`
+                <li>
+                    <img onerror = src = '/img/timg.jpg';data-src="${img}" alt="">
+                    <p title="${title}">商品名称<span>${title.substr(0,6)}</span></p>
+                    <p>热度<span>${hot}</span></p>
+                    <p>价格<span>${price}</span></p>
+                </li>
+                `
+            }).join("");
+            ul.innerHTML = str;
+        }
+        render(dataCopy)
+        //可视区的高度，滚动条的距离，每张图片的绝对位置
+
+        const ih = window.innerHeight;//可视区的高度
+        const li = document.querySelectorAll("#ul li");
+        const tl = new Tools;
+        window.onscroll = fn;
+        fn();
+        function fn(){
+            console.log(window.pageYOffset)//滚动条的距离
+            let num = 50;
+            li.forEarch((ele,i)=>{
+                let {t} = t1.position(ele);//每张图片的绝对位置
+             if(ih+window.pageYOffset>=t && !ele.children[0].src){//要显示
+                log(ele);//添加src属性之后就不需要再次添加src了
+                //把图片dataaset属性中的src变成真正的src，这个时候图片就能正常显示页面了
+                ele.childern[0].src = ele.children[0].dataset.src;
+                setTimeout(()=>{
+                    ele.children[0].style.opacity = 1;
+                },num*i);
+             }
+             console.log(t)
+            })
+        }
+    })
+</script>
+</html>
