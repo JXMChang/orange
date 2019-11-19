@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+          exec的小秘密
+          如果是一个变量的正则，每次不断地去用正则调用exec，返回的结果总是下次匹配结果，如果下次匹配不到，返回null
+          lastIndex是可以拿到当前匹配项之后第一个字符的位置
+        */
+    //    let str ="dcdcdcdc"
+    //    let re =/(dc)/gi;
+    //    console.dir(re.exec(str));//["dc","dc"]
+    //    console.log(re.lastIndex)//2
+    //    console.log(re.exec(str));//["dc", "dc", index: 2, input: "dcdcdcdc", groups: undefined]
+    //    console.log(re.lastIndex);//4
+    //    console.log(re.exec(str));//["dc", "dc", index: 6, input: "dcdcdcdc", groups: undefined]
+    //    console.log(re.exec(str));//null
+    //    console.log(re.exec(str));//["dc", "dc", index: 0, input: "dcdcdcdc", groups: undefined]
+    //    console.log(re.exec(str));//["dc", "dc", index: 2, input: "dcdcdcdc", groups: undefined]
+    //    console.log(re.exec(str));//["dc", "dc", index: 2, input: "dcdcdcdc", groups: undefined]
+    //    console.log(re.exec(str));//["dc", "dc", index: 4, input: "dcdcdcdc", groups: undefined]
+
+       let str = 'abacababcbacabc';
+       function replace(str,re,cb){ 
+           let str2 =""; //最后改变的结果
+           let ary = re.exec(str)//true 让第一次能够进去while中(找到第一次的位置)
+           let rep ="";//函数return的结果
+           let reAry =[];//每次返回要修改字符的数组
+           let noRep = [];//不替换的
+           let num = 0;
+           while(ary){
+               console.log(ary);
+               let [index] = ary; //解构出匹配到的索引index
+               reAry.push(cb(...ary,index,str));
+               noRep.push(str.substring(num,re.lastIndex-ary[0].length))
+               //rep = cb(...ary,index,str);
+               //console.log(str2.substring(4))
+               //str2 = str.substring(0,index)+rep+str.substring(re.lastIndex)
+               num = re.lastIndex;
+               ary = re.exec(str)
+           }
+           //没修改 + 修改的 = 最新的字符串
+           noRep.forEach((old,i)=>{
+               str2+=(old + reAry[i])
+           });
+           //console.log(noRep);
+           //console.log(reAry);
+           return str2;
+       }
+       let i =0;
+       let s = replace(str,/abc/g,function($0,$1,$2,$3,$4,$5){
+           return "ade"+i++;
+       })
+       console.log(s)//acbc
+    </script>
+</body>
+</html>
