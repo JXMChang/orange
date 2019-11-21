@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 50px;
+            height: 50px;
+            background:orchid;
+            position: absolute;
+            top:0;
+            left:0;
+        }
+        .box2{
+            width: 5px;
+            height: 5px;
+            background: seagreen;
+            position: absolute;
+            top:0px;
+            left:22px;
+            transition: 1s;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div id="box2"></div>
+    </div>
+    <script>
+        // 如果切换上下或左右的话，让盒子的频率不闪的话，那就按照规定的时间去切换键 
+           let left =false;
+           let right= false;
+           let down = false;
+           let  up = false;
+          setInterval( function(){
+             if(left){
+                 box.style.left = box.offsetLeft-15+"px";
+             }
+             else if(right){
+                box.style.right = box.offsetTop+15+"px";
+             }
+             else if(down){
+                box.style.down= box.offsetTop+15+"px";
+             }
+             else if(up){
+                box.style.up = box.offsetLeft-15+"px";
+             }
+          },1000);
+                document.onkeydown = function(ev){
+                    switch(ev.keyCode){
+                        case 87:
+                        if(box.offsetTop!==0){
+                              up = true;
+                        }
+                          break;
+                          case 83:
+                          if(box.offsetTop+50!==document.documentElement.clientHeight){
+                              down = true;
+                          }
+                          break;
+                          case 65:
+                          if(box.offsetLeft!==0){
+                             left = true;
+                          }
+                          break;
+                          case 68:
+                          if(box.offsetright!==0){
+                              right =true;
+                          }
+                          break;
+                    }
+                    if(ev.shiftKey&&ev.shiftKey===37){
+                        box.style.left = box.offsetLeft-15+"px"
+                        box.style.Top = box.offsetTop-15+"px"
+                    }
+                    if(ev.shiftKey&&ev.shiftKey===38){
+                        box.style.left = box.offsetLeft-15+"px"
+                        box.style.Top = box.offsetTop-15+"px"
+                    }
+                    if(ev.shiftKey&&ev.shiftKey===39){
+                        box.style.left = box.offsetLeft-15+"px"
+                        box.style.Top = box.offsetTop-15+"px"
+                    }
+                    if(ev.shiftKey&&ev.shiftKey===40){
+                        box.style.left = box.offsetLeft-15+"px"
+                        box.style.Top = box.offsetTop-15+"px"
+                    }
+                }
+                document.onkeydown = function(ev){
+                    switch(ev.keyCode){
+                        case 87:
+                        if(box.offsetTop!==0){
+                              up = false;
+                        }
+                          break;
+                          case 83:
+                          if(box.offsetTop+50!==document.documentElement.clientHeight){
+                              down = false;
+                          }
+                          break;
+                          case 65:
+                          if(box.offsetLeft!==0){
+                             left = false;
+                          }
+                          break;
+                          case 68:
+                          if(box.offsetright!==0){
+                              right =false;
+                          }
+                          break;
+                    }
+             }
+ </script>
+</body>
+</html>
