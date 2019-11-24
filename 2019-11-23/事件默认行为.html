@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body style="height:3000px;">
+    <a href="http://www.baidu.com"id="box">去百度</a>
+    <ul id="ul">
+        <li>我的帖子</li>
+        <li>用户管理</li>
+        <li>我的关注</li>
+        <li>我的好兄弟</li>
+    </ul>
+    <script>
+    // /*
+    //   默认事件行为：
+    //    某些行为不是人为做的，而且浏览器悄悄做的
+    //    DOMO的方式
+    //    要阻止默认行为要知道是什么事件触发的这种行为
+    //     ev.returnVaule = false;要阻止默认行为(灵活)
+    //     return false
+    //     ev.preventDefault();(事件绑定的时候使用或者returnVaule)
+    //     oncontextmenu 鼠标右键
+    // */
+    //    document.onkeydown = function(ev){
+    //        if(ev.keyCode === 32){
+    //            console.log(ev);
+    //            ev.returnVaule = false;
+    //            return false;
+    //        }
+    //        return false;
+    //    }
+    //    txt.onkeydown = function(ev){
+    //        console.log(1);
+    //        ev.cancelBubble = true;
+    //    }
+    //    img.onkeydown = function(ev){
+    //        return false;
+    //    }
+    //    ul.onclick = function(ev){
+    //        console.log(ev.target.innerHTML)
+    //        ev.stopPropagation();
+    //        //ul.style.display = "none";
+    //    }
+    //    let yan = true;
+    //    aa.addEventListener("click",function(ev){
+    //        //ev.returnValue = false;
+    //        //return false;
+    //        ev.preventDefault();
+    //    })
+    //    aa.onclick = function(){
+    //        if(!yan){
+    //            return false;
+    //        }
+    //    }
+    
+
+    //call方法是函数自带的，第一个参数改变this的指向，第二个或第二个以后的接是实参
+    //注意null和undefined都是数据的window
+      Function.protype.Mycall =function(that,...arg){
+          let typeof = that;
+          if(typeof null |typeof undefined){
+              let typeof = window
+          }else{
+              while (that) {
+                  case "Number":
+                  that = new Number(that);
+                  break;
+                  case "string":
+                  that = new String(that);
+                  break;
+                  case "Boolean":
+                  that = new Boolean(that);
+                  break;
+              }
+          }
+          that.fn = this;
+          that.fn(...arg);
+          delete that.fn;
+      }
+    </script>
+</body>
+</html>

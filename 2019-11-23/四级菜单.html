@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        /**{
+            margin: 0;
+            padding: 0;
+        }*/
+        .box{
+            width:500px;
+            /*1.角度  颜色*/
+            background: linear-gradient(-45deg,lightseagreen,lightpink,lightblue,lightyellow,lightcoral);
+            background: -webkit-linear-gradient(-45deg,lightseagreen,lightpink,lightblue,lightyellow,lightcoral);
+        }
+        .box span{
+            display: block;
+            height:35px;
+            line-height: 35px;
+            cursor: pointer;
+        }
+
+        .box span.close:before{
+            content: "+";
+            font-size: 20px;
+            font-weight: bold;
+            color:red;
+        }
+        .box span.open:before{
+            content: "-";
+            font-size: 30px;
+            font-weight: bold;
+            color:red;
+        }
+
+    </style>
+</head>
+<body>
+<ul class="box" id="box">
+    <li><span>第一级菜单</span>
+        <ul>
+            <li><span>第二级菜单</span>
+                <ul>
+                    <li><span>第三级菜单</span>
+                        <ul>
+                            <li><span>第四级菜单</span></li>
+                            <li><span>第四级菜单</span></li>
+                        </ul>
+                    </li>
+                    <li><span>第三级菜单</span></li>
+                    <li><span>第三级菜单</span></li>
+                    <li><span>第三级菜单</span></li>
+                </ul>
+            </li>
+            <li><span>第二级菜单</span>
+                <ul>
+                    <li><span>第三级菜单</span></li>
+                    <li><span>第三级菜单</span></li>
+                    <li><span>第三级菜单</span></li>
+                    <li><span>第三级菜单</span></li>
+                </ul>
+
+            </li>
+            <li><span>第二级菜单</span>
+            </li>
+            <li><span>第二级菜单</span></li>
+        </ul>
+    </li>
+    <li><span>第一级菜单</span></li>
+    <li><span>第一级菜单</span></li>
+    <li><span>第一级菜单</span></li>
+</ul>
+<script>
+    var ul = document.getElementById("box");
+    var li = ul.querySelectorAll("#box>li");
+    function fn(curEle) {
+        if(curEle===null){
+            return;
+        }
+       for(var i=0;i<curEle.length;i++){
+           var but = curEle[i].children.length;
+            if(but==1){
+                curEle[i].children[0].classList.add("open");
+            }else{
+                curEle[i].children[0].classList.add("close");
+                var chars = curEle[i].children;
+                fn1(curEle);
+                for (var j=0;j<chars.length;j++){
+                    if(chars[j].nodeName==="UL"){
+                        chars[j].setAttribute("style","display: none");
+                        fn(chars[j].children);
+                    }
+                }
+            }
+       }
+    }
+    fn(li);
+    function fn1(li) {
+        for(var i=0;i<li.length;i++){
+            var but = li[i].children.length;
+            if(but!=1){
+                var cur = (li[i].children)[0];
+                cur.onclick=function (e) {
+                    var str = e.target;
+                    if((str.nextElementSibling).getAttribute("style")=="display: none"){
+                        (str.nextElementSibling).setAttribute("style","display: block");
+                    }else {
+                        var cur1 = (str.nextElementSibling).querySelectorAll("ul");
+                        for(var i=0;i<cur1.length;i++){
+                            cur1[i].setAttribute("style","display: none")
+                        }
+                        (str.nextElementSibling).setAttribute("style","display: none");
+                    }
+                }
+            }
+        }
+    }
+
+       
+</script>
+</body>
+</html>
