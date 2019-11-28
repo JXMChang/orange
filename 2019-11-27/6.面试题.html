@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // const promise = new Promise((rsolve,reject)=>{//new promise实例
+        //     console.log(1)//主线程 1
+        //     resolve()
+        //     console.log(2)//4
+        // })
+        // promise.then(()=>{
+        //     console.log(3)//3
+        // })
+        // console.log(4)// 主线程 2
+
+        // let p = new Promise((resolve)=>{
+        //     setTimeout(()=>{
+        //         resolve();
+        //     },0);
+        // });
+        // console.log(p);//resolve 成功态
+
+        // const promise1 = new Promise((resolve,reject)=>{
+        //     setTimeout(()=>{
+        //         resolve("success")
+        //     },1000)
+        // })
+        // const promise2 = promise1.then(()=>{
+        //     throw new Error('error!!!')
+        // })
+        // console.log('promisel',promise1);//pending
+        // console.log('promise2',promise2);//pending
+
+        // setTimeout(()=>{
+        //     console.log('promise1',promise1);//resolve
+        //     console.log('promise2',promise2);//reject
+        // },2000);
+
+        // const promise = new Promise((resolve,reject)=>{
+        //     resolve("success1")
+        //     reject('error')
+        //     resolve('success2')
+        // })
+        // promise.then((res)=>{
+        //     console.log('then:',res)
+        // }).catch((err)=>{
+        //     console.log(res);//"success1"
+        //     return 2
+        // })
+        // .catch((err)=>{
+        //     return 3
+        // })
+        // .then((res)=>{
+        //     console.log(res);//2
+        // })
+
+        // const promise  = new Promise((resolve,reject)=>{
+        //     //宏任务
+        //     setTimeout(()=>{
+        //         console.log('once');//1
+        //         resolve('success')
+        //     },1000)
+        // })
+       
+    //    //抛出错误异常
+    //    const promise = new Promise(function(resolve,reject){
+    //        throw new Error('test');
+    //    });
+    //    promise.catch(function(error){
+    //        console.log(error);
+    //    })
+
+
+
+       
+
+
+
+
+
+    </script>
+</body>
+</html> 

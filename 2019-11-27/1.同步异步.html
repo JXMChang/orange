@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       /*
+       js从上往下解析代码, 并且js是单线程的(同一个时间只解决一件事)->事件调用->把任务交给了浏览器的引擎(所有js事件全部都是异步的)
+
+       同步：代码从上往下执行，如果一个地方的代码没有执行玩，下面的代码就不执行了
+       异步：代码从上往下执行，如果一个地方的代码没有执行，就会继续执行代码，当代码执行完之后，再去处理没有处理完的代码,定时器，所有事件，promise
+
+       js先执行主线程的代码，如果主线程有异步代码，比如定时器，promise或者事件，那么会把异步代码放到异步队列中存储，当异步代码条件成立时，把异步代码压入到主线程中执行，压入的方式是如果有微任务就执行微任务，执行完微任务再去执行宏任务，当主线程空间的时候执行压入的代码，执行完之后再从异步代码到主线程中，这个过程叫做事件循环
+
+       注意的是执行完微任务是第一层的，如果在宏任务中开个微任务，那么就先执行宏任务，在执行宏任务中的微任务
+       */ 
+
+       setTimeout(function(){
+           Promise();
+       })
+       //异步的操作是不容易进行维护开发的，同步操作才利于维护开发(上面的代码执行完才会执行下面的,有序的)
+       //promise是解决异步编程书顺序问题的(也就是说，让异步的代码同步执行)
+
+       let a = 10;
+       setTimeout(()=>{
+           a = 20;
+       },0)
+       console.log(a)//10
+        
+       document.onclick = function(){
+           console.log(a)//所有的点击事件都是异步
+       }
+    </script>
+</html>
