@@ -1,0 +1,150 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+#box {
+  width: 100%;
+  background: #CCC;
+  height: 100%;
+}
+#box nav {
+  width: 100%;
+  height: 60px;
+  background: #AAA;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#box nav .title {
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  margin-left: 60px;
+}
+#box nav .title .img {
+  height: 100%;
+  width: 100%;
+}
+#box nav .list {
+  margin-right: 60px;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+#box nav .list li {
+  margin-right: 60px;
+}
+#box nav .list li a {
+  display: block;
+  margin-left: 7px;
+  color: white;
+}
+#box nav .list li i {
+  font-size: 20px;
+  color: white;
+}
+#box #content {
+  background: #524b4b;
+  display: flex;
+  cursor: pointer;
+}
+#box #content #content_left {
+  width: 15%;
+  height: 800px;
+  margin-left: 40px;
+}
+#box #content #content_left .left_box {
+  display: flex;
+  flex-direction: column;
+}
+#box #content #content_left .left_box li {
+  width: 200px;
+  position: relative;
+  font-weight: 800px;
+  color: white;
+  font-size: 13px;
+  margin-top: 30px;
+}
+#box #content #content_left .left_box li span:nth-child(1) {
+  font-size: 16px;
+}
+#box #content #content_left .left_box li i:nth-child(1) {
+  display: inline-block;
+  font-size: 20px;
+  margin-right: 20px;
+}
+#box #content #content_left .left_box li i:nth-child(2) {
+  position: absolute;
+  right: 50px;
+  top: 5px;
+  display: inline-block;
+  font-size: 20px;
+  margin-left: 50px;
+}
+#box #content #content_left .left_box li .left_music_name {
+  display: none;
+}
+#box #content #content_right {
+  width: 85%;
+  height: 800px;
+  background: #c8e2ee;
+}
+#box #content #content_right .select_box {
+  width: 100%;
+  height: 60px;
+  background: #f5e4e4;
+}
+#box #content #content_right .select_box .select_box_nav {
+  height: 60px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+#box #content #content_right .select_box .select_box_nav li {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  padding-right: 20px;
+}
+#box #content #content_right .select_box .select_box_nav i {
+  font-size: 20px;
+  margin-right: 20px;
+}
+#box #content #content_right .select_box .select_box_selected {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  background: #e3cefc;
+}
+#box #content #content_right .select_box .select_box_selected #selected {
+  margin-left: 20px;
+}
+#box #content #content_right .select_box .select_box_section ul {
+  margin-top: 30px;
+  margin-left: 30px;
+}
+#box #content #content_right .select_box .select_box_section ul li {
+  float: left;
+  margin: 15px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 120px;
+  text-align: center;
+}
+#box #content #content_right .select_box .select_box_section ul li img {
+  width: 80px;
+  margin-bottom: 10px;
+}
+#box #content #content_right .select_box .select_box_section ul li input {
+  width: 110px;
+  margin: 0 auto;
+  display: inline-block;
+  text-align: center;
+}
+#box #content #content_right .select_box .select_box_section ul li p {
+  width: 110px;
+  margin: 0 auto;
+  text-align: center;
+}

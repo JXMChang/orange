@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="./css/bootstrapcss/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="css/font_/iconfont.css">
+    <link rel="stylesheet" href="css/css1/reset.css">
+    <link rel="stylesheet" href="css/css1/index.css">
+
+</head>
+
+<body>
+    <div id="box">
+        <nav>
+            <a href="" class="title">
+                <img src="img/header.png" alt="" class="img">
+            </a>
+            <ul class="list">
+                <li>
+                    <i class="iconfont icon-geren"></i>
+                    <a href="">个人中心</a>
+                </li>
+                <li>
+                    <i class="iconfont icon-yemian"></i>
+                    <a href="">首页</a>
+                </li>
+                <li>
+                    <i class="iconfont icon-gerenshezhi"></i>
+                    <a href="">设置</a>
+                </li>
+                <li>
+                    <i class="iconfont icon-wendang"></i>
+                    <a href="">文档</a>
+                </li>
+            </ul>
+        </nav>
+        <div id="content">
+            <div id="content_left">
+                <ul class="left_box">
+                    <li class="left_like">
+                        <div>
+                            <span> <i class="iconfont icon-shoucang1"></i>我的喜欢 <i
+                                    class="iconfont icon-arrLeft"></i></span>
+
+
+                        </div>
+                        <!-- <ul>
+                            <li>
+                                <div>
+                                    <span><i></i>js权威指南</span>
+                                </div>
+                            </li>
+                        </ul> -->
+                    </li>
+                    <li class="left_music">
+                        <div>
+                            <span> <i class="iconfont icon-music"></i>我的音乐<i class="iconfont icon-arrLeft"></i>
+                            </span>
+                        </div>
+                        <ul class="left_music_name">
+                            <li>
+                                <div>
+                                    <span>周杰伦<i class="iconfont icon-arrLeft"></i></span>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <div>
+                                            <span><i></i>发如雪</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <span><i></i>夜曲</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <span><i></i>稻香</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div>
+                                    <span>王杰<i class="iconfont icon-arrLeft"></i></span>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <div>
+                                            <span><i></i>发如雪</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <span><i></i>夜曲</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <span><i></i>稻香</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="left_load">
+                        <div>
+                            <span>
+                                <i class="iconfont icon-download-01"></i>
+                                我的下载
+                                <i class="iconfont icon-arrLeft"></i>
+                            </span>
+
+                        </div>
+                    </li>
+                    <li class="left_collect">
+                        <div>
+                            <span><i class="iconfont icon-yishoucang"></i>我的收藏
+                                <i class="iconfont icon-arrLeft"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="left_doc">
+                        <div>
+                            <span> <i class="iconfont icon-guanli"></i>我的文档<i class="iconfont icon-arrLeft"></i>
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="content_right">
+                <div class="select_box">
+                    <ul class="select_box_nav">
+                        <li><i class="iconfont icon-download-01"></i>下载</li>
+                        <li><i class="iconfont icon-fenxiang"></i>分享</li>
+                        <li><i class="iconfont icon-cloud-move"></i>移动到</li>
+                        <li><i class="iconfont icon-zhongmingming"></i>重命名</li>
+                        <li><i class="iconfont icon-shanchu"></i>删除</li>
+                        <li id="floder"><i class="iconfont icon-xinjian"></i>新建文件夹</li>
+                        <li><i class="iconfont icon-f14"></i>刷新</li>
+                    </ul>
+                    <div class="select_box_selected">
+                        <input type="checkbox" id="selected">
+                    </div>
+                    <div class="select_box_section">
+                        <ul id="box_doc">
+                            <li>
+                                <img src="./img/folder-b.png" alt="">
+                                <input type="text">
+                                <p>新建文件夹</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- <script src="js/bootstrapjs/bootstrap.min.js"></script> -->
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/index.js"></script>
+    <script>
+        let ary = [{
+                title: '新建文件夹',
+                id: 0
+            },
+            {
+                title: '新建文件夹(1)',
+                id: 1
+            }
+        ];
+
+        function render() {
+            $("#box_doc").html("");
+            $.each(ary, (i, item) => {
+                let $str = $(` <li >
+                                <img src="./img/folder-b.png" alt="">
+                                <input type="text">
+                                <p>${item.title}</p>
+                            </li>`);
+                $str.find("input").hide();
+                $("#box_doc").append($str);
+            })
+        }
+        render(ary);
+        $("#floder").click(function () {
+            let $str = $(` <li >
+                                <img src="./img/folder-b.png" alt="">
+                                <input type="text" placeholder="请设置文件名"  value="新建文件夹"
+                            </li>`);
+            $("#box_doc").append($str);
+            let $txt = $str.find("input");
+            $txt.select();
+            $txt.blur(function () {
+                let val = $txt.val();
+                //看看是否重复命名
+                let bool = ary.map(item => item.title).includes(val);
+                let nval = '';
+                let num = 1;
+                nval = val; //把input中value给最新的value（最新的value就是最后的结果）
+                while (bool) {
+                    //如果重名了那么从1开始看有没有重名
+                    let s = val.replace(/\(\d\)$/, '') + '(' + num++ + ')';
+                    bool = ary.map(item => item.title).includes(s);
+                    nval = s;
+                }
+                ary.push({
+                    id: +new Date,
+                    title: nval
+                });
+                render(ary);
+            });
+
+        })
+    </script>
+</body>
+
+</html>
