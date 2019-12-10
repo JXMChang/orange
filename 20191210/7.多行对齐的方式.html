@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #box{
+            width: 350px;
+            height: 400px;
+            display: flex;
+            border:5px solid #000;
+            flex-wrap:wrap;
+            /* align-content: space-between; */
+            align-content:flex-end;
+        }
+        span{
+            width: 100px;
+            background:red;
+            margin-left:5px solid #000;
+            flex-wrap:wrap;
+            align-content:space-between;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+        <span>7</span>
+    </div>
+</body>
+</html>
