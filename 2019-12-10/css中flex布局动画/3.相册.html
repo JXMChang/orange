@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+       *{
+           margin: 0;
+           padding: 0;
+       }
+       #box{
+           width: 510px;
+           height: 510px;
+           position: relative;
+           margin:2% auto;
+           transform:scale(.5);
+           perspective: 1000px;
+           transform-style: preserve-3d;
+       }
+       #box div{
+           width: 51px;
+           height: 51px;
+           position: absolute;
+           top:0;
+           left:0;
+           background: url('./img/timg4.jpg') no-repeat;
+           transition: 1s;
+       }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        const stup = 51;
+        let temp ="";
+        for(let i=0;i<10;i++){
+            for(let j=0;j<10;j++){
+                temp +=`<div data-x="${-i*stup}" data-y="${-j*stup}" style="background-position:${-i*stup+"px"} ${-j*stup}"style="background-position:${-i*stup+'px'} ${-j*stup}px;top:${j*stup}px;left:${i*w}px;"><div>`;
+            }
+        }
+        box.innerHTML = temp;
+        let child = box.children;
+        let num = 1;
+        box.onclick = function(){
+            for(let i =0;i<child.length;i++){
+                const {x,y} = child[i].dataset;
+                child[i].style.top = -(y)*1+random(-100,100) +'px';
+                child[i].style.left = -x*1+random(-100,100)+"px";
+                child[i].style.tranform = `skewX(${rendom(-45,45)}deg)translateZ(1000px)`;
+            }
+            setTimeout(()=>{
+                num++;
+                if(num>6){
+                    num =1;
+                }
+                for(let i=0;i<child.length;i++){
+                    const {x,y} = child[i].dataset;
+                    child[i].style.left = -(y)*1 +"px";
+                    child[i].style.top = -x*1+'px';
+                    child[i].style.opacity = 1;
+                    child[i].style.backgroundImage = `url('./img/timg4.jpg${num}.jpg')`;
+                }
+            },1050);
+            function random(n,m){
+                return Math.round(Math.random()*(m-n))+n;
+            }
+        }
+    </script>
+</body>
+</html>
