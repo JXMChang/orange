@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn1">播放</button>
+    <button id="btn2">暂停</button>
+    <button id="btn3">音量</button>
+    <button id="btn4">调进度</button>
+
+    <div id="bar">
+        <div id="bar2"></div>
+        <audio id="au"src="需要你自己配置MP3" controls></audio>
+    </div>
+    <script>
+        btn1.onclick = function(){
+            au.play(); //开始
+        }
+        btn2.onclick = function(){
+            au.pause(); //播放
+        }
+        //播放时间变化的时候触发
+         au.ontimeupdate = function(){
+             console.log(au.currenTime);//当前播放时间
+         }
+
+         console.log(au.duration)//以秒为单位
+
+         btn3.onclick = function(){
+            au.volume = .2;
+            console.log(au.volume);
+         }
+         btn4.onclick = function(){
+             au.currenTime = 90;
+         }
+
+         //控制音量的
+         bar2.onmousedown = function(ev){
+             let disY = ev.pageY - bar2.offsetTop;
+             document.onmousemove = function(ev){
+                 let t = ev.pageY - bar2.offsetTop
+                 document.onmousemove = function(ev){
+                     let t = ev.pageY - disY;
+                     if(t<0){
+                         t=0;
+                     }else if(t>bar.offsetHeight - bar2.offsetHeight){
+                         t=bar.offsetHeight - bar2.offsetHeight;
+                     }
+                     let scale = 1-t/(bar.offsetHeight - bar2.offsetHeight);
+                     console.log(scale);
+                     bar2.style.top = t+"px";
+                 }
+                 document.onmouseup = function(){
+                     document.onmousemove = document.onmouseup = null;
+                 }
+             }
+         }
+    </script>
+</body>
+</html>

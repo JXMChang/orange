@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //    function Foo(){
+    //        getname = function(){
+    //            console.log(1)
+    //        }
+    //        return this;
+    //    }
+    //    Foo.getname = function(){
+    //        console.log(2)
+    //    }
+    //    Foo.prototype.getname = function(){
+    //        console.log(3);
+    //    }
+    //    var getName = function(){
+    //        console.log(4);
+    //    }
+    //    function getName(){
+    //        console.log(5);
+    //    }
+    //    Foo.getName();//2
+    //    getName();//4
+    //    Foo().getName();//1
+    //    getName();//1
+    //    new Foo.getName();//2
+    //    new Foo().getName();//3
+    //1.首先进行变量提升，然后考察原型链的概念，以及构造函数中new一个实例，然后this指向谁。
+     
+     //this 问题
+            //     var a = {
+            //     name:"zhang",
+            //     sayName:function(){
+            //     console.log("this.name="+this.name);
+            //     }
+            // };
+            //     var name = "ling";
+            //     function sayName(){
+            //     var sss = a.sayName;
+            //     sss(); //this.name = "ling"
+            //     a.sayName(); //this.name = "zhang"
+            //     (a.sayName)(); //this.name = "zhang"
+            //     (b = a.sayName)();//this.name = "ling"
+            // }
+            // sayName();
+            //解析：考察基本类型和引用类型值的认识以及操作的顺序，还有this指向的问题
+
+        var name = "ling";
+        var obj = {
+            name:"zhang",
+            sayName:function(){
+                console.log("this.name="+this.name);
+            },
+            callback:function(){
+                var that = this;
+                return function(){
+                    var sayName = that.sayName;
+                    that.sayName(); //this.name = "zhang"
+                    sayName();//this.name = "ling"
+                }
+            }
+        }
+        function addEvent(obj,type,callback){
+            if(obj.addEventListener){
+                obj.addEventListener(type,callback,false);
+            }else if(obj.attachEvent){
+                obj.attachEvent("on"+type,callback);
+            }else{
+                var fn = obj["on"+type];
+                obj["on"+type] = function(){
+                    fn && fn();
+                    callback();
+                }
+            }
+        }
+        addEvent(document,"click",obj.callback());
+        //考察变量提升，引用类型操作空间地址，基本类型是操作值的，还有this的指向，以及作用域链向上一级查找问题
+ 
+    </script>
+</body>
+</html>

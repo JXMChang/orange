@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        布局：分为pc端和移动端
+
+        移动布局方式：
+        flex布局
+        rem布局
+        响应式布局(非主流)：响应式布局能适配多个端口，弊端：一个项目要若干个css去适配，过程比较繁琐
+        百分比布局
+        table布局(过时产品)
+
+        视口：
+        视觉视口:能让pc上的页面，整个装到装到移动端浏览器上，但是会缩小
+         视觉视口和缩放比例关系为：
+
+         当前缩放值 = 理想视口宽度 / 视觉视口宽度
+
+         所以，用户放大时，视觉视口将会变小，css像素将跨越更多的屋里像素
+
+        理想视口：
+        布局视口：滚动条，宽度以整个页面(整个文档)为主，document.documentElement.clientwidth
+
+          物理像素：设备屏幕的物理像素，任何设备的物理像素数量都是固定的。
+
+
+
+          css像素(css pixes)
+          是css和js中使用的一个抽象概念它和物理像素之间的比例取决于屏幕的特点
+           
+           运用的视口中的属性，注意以下几点：
+           viewport标签只对移动端浏览器有效，对pc端浏览器是无效的
+           当缩放比例为100%时，dip宽度 = css像素宽度 == 理想视口的宽度 = 布局视口的宽度
+           单独设置initial-scale或width都会有兼容性问题，所以设置也可以强制启用手动缩放
+
+            下面是常见的设备像素比：
+            普通密度桌面显示屏：devicepixelRatio = 1；
+            高密度桌面显示屏：devicePixelRatio = 2;
+            主流手机显示屏：devicePixelRatio = 2 or 3;
+
+            viewport详解
+            在移动端有三种类型：viewport：layoutviewport,visualviewport,idealviewport。具体解释如下：
+            1.layoutviewport:大于实际屏幕，元素的宽度继承于layoutviewport,用于保证网站的外观特性与桌面浏览器一样。layoutviewport到底多宽，
+            每个浏览器不同。iphone的safari为980px，通过document.documentElement.clientWidth宽度。
+            idealviewport：为浏览器定义的可完美适配移动端的理想viewport，固定不变，可以认为是设备视口宽度。比如iPhone 7 为375px，iPhone7为375px，iPhone7P为414px;
+            
+            rem移动端：
+
+            rem和em的区别？
+            1.em作为font-size的单位时，其代表父元素的字体大小，em作为其他属性单位时，代表自身字体大小-MDN
+            2.rem作用于非根元素时，相对于根元素字体大小；rem作用于根元素字体大小时，rem作用于根元素字体大小时，相对于其出初始字体大小一MDN,其实rem布局的本质是等比缩放，一般是基于宽度
+           
+            
+
+
+
+        */
+    </script>
+</body>
+</html>
