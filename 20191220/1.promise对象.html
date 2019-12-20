@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        Generator函数有多种理解角度。语法上，首先可以与传统函数完全不同。
+        Generator函数是一个状态机，封装了多个内部状态
+        执行Generator函数有多种理解角度。语法上，首先可以理解成，Generator函数是一个状态机，还是一个遍历器对象生成函数。返回的遍历器对象，可以依次遍历函数
+        Generator函数内部的每一个状态。
+        形式上，Generator函数是一个普通函数，但是有2个特征。一是，function关键字与函数名之间有一个星号；二是，函数体内部使用yield表达式，定义不同的内部状态(yield:产出)
+        */
+        //  function*hellowordGenerator(){
+        //      yield "hello";
+        //      yield 'word';
+        //      return 'ending';
+        //  }
+        //  var hw = helloworldGenerator();
+         //helloworldGenerator内部有2个表达式：hollo和word ，该函数有三个状态：hello，word和return语句
+         
+         //在Es6中，promise对象是一个构造函数，用来生成promise实例
+         //创建一个promise实例
+        //const promise = new Promise(function(resolve,reject){
+              //...some code
+        //       if(/* 异步操作成功*/){
+        //          resove(value);//成功状态
+        //       }else{
+        //           reject(error)//失败状态
+        //       }
+        //   })
+         // promise构造函数接受一个函数作为参数，该参数的2个参数分别是resolve和reject,它们的参数由js引擎提供，不需要自己部署
+
+         //promise实例生成以后，可以用then方法分别指定resolved状态和rejected状态的回调函数
+        //  promise.then(function(value){
+        //      //success
+        //  },function(error){
+        //      //failure:失败
+        //  }) 
+         //then方法可以接受2个回调函数作为参数。第一个回调函数是promise对象的状态变为resloved时调用，第二个回调函数是Promise对象的状态为rejected时调用。其中，第二个函数是可选的，不一定要提供。这2个函数都接受Promise对象传出的值作为参数
+
+         //promise对象的例子
+        //   function timeout(ms){
+        //       return new Promise((resolve,reject)=>{//return一个promise的实例，并传resolve，reject状态；
+        //           setimeout(resolve,ms,'done');//定时器过1000ms之后把resolve,ms,done接收到。
+        //       });
+        //   }
+        //   timeout(1000).then((value)=>{
+        //       console.log(value);
+        //   });
+          //timout这个方法返回了一个promise实例，表示一段时间以后才会发生的结果，过了指定的时间(ms参数)以后，Promise实例的状态改变为resloved，就会触发then方法绑定的回调函数。
+
+          //Promise新建后立即执行
+        //   let Promise = new promise(function(resolve,reject){
+        //       //new一个promise实例然后自带一个自执行函数，自执行函数里面带2个参数reslove,reject
+        //       console.log('promise');
+        //      resolve();//让成功态自执行
+        //   });
+        //   promise.then(function(){//promise.then再一次调用函数
+        //       console.log(reject);
+        //   })
+        //   console.log('Hi');
+
+    // let promise = new Promise((resolve, reject) => {
+    //     //=>resolve：当异步操作执行成功，我们执行resolve方法
+    //     //=>reject：当异步操作执行失败，我们执行reject方法
+    //     setTimeout(() => {
+    //         reject(100);
+    //     }, 1000);
+    // }).then((res) => {
+    //     //=>第一个传递的函数是resolve
+    //     console.log('ok', res);
+    // }, () => {
+    //     //=>第二个传递的函数是reject
+    //     console.log('no');
+    // });
+    // promise.then((res) => {
+    // console.log(res);
+    // //=>数据绑定
+    // return 100;//=>它返回的结果传递给第二个THEN了...
+    // }, () => {
+    // console.log('no');
+    // }).then((res) => {
+    // //=>当第一个THEN中的函数执行完，会执行第二个
+    // console.log(res);
+    // }, () => {
+
+    // }).then(() => {
+    // //=>当第二个THEN中的函数执行完，会执行第三个
+    // }, () => {
+    // }); 
+
+    //下面异步加载的例子
+    function loadIamgeAsync(url){
+        return new Promise(function(resolve,reject){
+         const image = new Image();
+         image.onload = function(){
+             resolve(image);
+         };
+         image.onerror = function(){
+             reject(new Error('Could not load image at'+url));
+         };
+         image.src = url;
+        })
+    }
+    //使用了一个promise包装一个图片，如果图片加载成功，就走resolve方法，如果没加载成功就走reject方法。
+
+    //用promise对象实现的Ajax操作的例子
+    // const getJSON = function(url){
+    //     const Promise = new Promise(function(resolve,reject){
+    //         const handler = function(){
+    //            if(this.readyState !==4){
+    //                return;
+    //            } 
+    //            if(this.status ===2000){
+    //                reslove(this.response);
+    //            }else{
+    //                reject(new Error(this.statusText));
+    //            }
+    //         };
+    //         const client = new XMLHttpRequest();
+    //         client.open('GET',url);
+    //         client.onreadystatechage = hendler;
+    //         client.responseType = 'json';
+    //         client.setRequestHeader('Accept','application/json');
+    //         client.send();
+    //     })
+    //     return promise;
+    // };
+    // getJSON("posts.json").then(function(json){
+    //     console.log('Contents:'+json);
+    // },function(error){
+    //     console.error('出错了',error)
+    // })
+    //gatJSON是对XMLHttpRequest对象的封装，用于发出一个针对Promise对象。在
+    //getJSON内部中，resolve函数和reject函数调用时，都带有参数。
+     
+    // const p1 = new Promise(function (resolve,reject){
+
+    // })
+    // const p2 = new promise(function(resolve,reject){
+    //     resolve(p1)
+    // })
+    
+    //p1和p2都是Promise的实例，但是p2的resolve方法将p1作为参数，即一个异步操作的结果是返回另一个异步操作。
+    //p1的状态就会传递给p2，也就是说，p1的状态决定了p2的状态。如果p1的状态是pending,那么p2的回调函数就会等待p1的状态改变；如果p1的状态已经是resolved和rejected，那么p2的坏掉函数将会立即执行
+    
+    const p1 = new Promise(function (resolve,reject){
+        setTimeout(()=>reject(new Error('fail')),3000)
+    })
+    const p2 = new Promise(function(resolve,reject){
+        setTimeout(()=>resolve(p1),1000)
+    })
+    p2
+      .then(result =>console.log(result))
+      .catch(error=>console.log(error))
+      //总结 p1 new一个promise实例，3秒之后变为rejected。p2的状态在1秒之后改变，resolve返回的另一个promise，导致p2自己的状态无效了，由p1的状态决定p2的状态。所以，后面的then语句都变成针对后者(p1)。又过了2秒，p1变为rejected，导致触发catch方法指定的回调函数
+      //注意，调用resolve或reject并不会终结Promise的参数函数的执行。
+
+      //promise.all()
+      //promise.all()方法用于将多个promise实例,包装成一个新的promise实例
+      const p = promise.all([p1,p2,p3]);
+      /*
+      Promise.all()方法接受一个数组作为参数，p1,p2,p3都是Promise实例，如果不是，就先调用下面讲到的Promise。resolve方法，将参数转为Promise实例，再进一步处理。另外，promise.all()方法的参数可以不是数组，但必须具有ITERator接口，且返回的每个成员都是promise实例
+
+      p的状态由p1,p2,p3决定，分为2种情况
+      (1)只有p1,p2,p3的状态fulfilled，p的状态才会变成fulfilled，此时p1,p2,p3的返回值组成一个数组，传递给p的回调函数
+      (2)只要p1,p2,p3的返回值组成一个数组，传递给p的回调函数
+      const promise = [2,3,4,5,6,7].map(function(id){
+          return getJSON('/post/'+id+".json");
+      })
+      promise.all(promises).then(function(posts){
+
+      }).catch(function(reson){
+
+      })
+      promise是包含6个promise实例的数组，只有这个6个实例的状态都变成fulfiled，或者其中一个变成rejected，才会调用promise.all方法后面的回调函数    
+        */
+
+    </script>
+</body>
+</html>
