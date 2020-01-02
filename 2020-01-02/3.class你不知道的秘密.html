@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 100px;
+            height: 100px;
+        }
+        .red{
+            background:red;
+        }
+        .green{
+            background: seagreen;
+        }
+        .active{
+            background:yellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+     <button
+      :class="{active:name}"
+      @click ="name=true"
+      >变红</button>
+    <button
+     :class="{active:!name}"
+     @click="name = false"
+    >变绿</button
+    >
+    <div 
+     id="box"
+     :class="{red:name,green:!name}"
+    ></div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                name:true
+            }
+        })
+    </script>
+</body>
+</html>

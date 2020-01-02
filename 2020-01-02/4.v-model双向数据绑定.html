@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 双向数据绑定(数据驱动视图,视图也可以改变数据)
+         绑v-model的目的就是想让用户数据操作界面的时候，顺便帮我操作数据
+        遇到了表单元素，就要考虑一下是否使用v-model -->
+    <div id="app">
+        <input
+          type="text"
+          v-model="val"
+          @keyup.13="click"
+          />
+          <!--@input="change" id="text"-->
+          <button
+           @click="click"
+          >点击</button>
+          <ul>
+              <li
+               v-for="(val,key) in ary"
+               @click="rm(key)"
+              >{{val}}</li>
+          </ul>
+          {{ary}}
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:
+                {
+                    val:'',
+                    ary:[]
+
+                },
+            methods: {
+                click(){
+                    this.ary.push(this.val);
+                    this.val="";
+                }
+            },
+            // rm(key){
+            //     this.ary = this.ary.filter((e,index)=>index!==key);
+            // }
+            up(ev){
+                if(ev.keycode === 13){
+                    console.log(1111)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

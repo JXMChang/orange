@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        1.什么是钩子函数？
+        回调函数，也就是在回调函数中，条件成立并触发这个函数
+        obj.age = 10;
+        set(){
+            //当指定的属性被写操作的时候触发
+        }
+        */
+       let obj = {};
+       let num =0;
+       Object.defineProperty(obj,'age',{
+            //当age的时候触发get
+            get(){
+                  console.log('加油'),
+                   alert('long你')
+                   return num;
+            },
+            //当操作age的时候触发get
+            set(val){
+                num = tb(val);
+            }
+       })
+       obj.age = 5;
+       obj.age = 9;
+       console.log(obj.age);
+       function tb(n){
+         return n<10?'0'+n:''+n;
+       }
+    </script>
+</body>
+</html>

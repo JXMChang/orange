@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model.number="val">
+        <!-- {{reverse}} -->
+        {{val | todoule }}
+        <p>{{val}}</p>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        /*
+         computed:
+         数据的第二次处理
+         管道符:(数据的第二次处理)
+         局部注册：
+         filters：{
+             fn(val管道符之前的值){
+                 return 基于管道符之前的值进行二次处理
+             }
+              
+         }
+
+         全局注册：
+         Vue.filter('名字'，function(val管道符之前的值){
+             return 基于管道符之前的值进行二次处理
+         })
+         全局注册之后，只要是当前vue实例下的所有组件都能享受到这个全局的过滤器局部注册，只有当前这个组件才能享受
+        */
+
+        new Vue({
+            el:"#app",
+            data:{
+                val:'珠峰培训'
+            },
+            methodes:{
+                fn(){
+                    return this.val.split('').reverse().join('')
+                }
+            },
+            computed: {
+                    reverse(){
+                        return this.val.split('').reverse().join('')
+                    }
+                },
+            filters:{
+                rever(val){
+                    return val.split('').reverse().join('');
+                },
+                clearNum(val){
+                    return val.replace(/\d+/,'')
+                },
+                //如果全局和局部注册相同的过滤器，那么优先级最高的是局部
+                // todoule(val){
+                //     return 0;
+                // }
+            }
+        })
+    </script>
+</body>
+</html>
