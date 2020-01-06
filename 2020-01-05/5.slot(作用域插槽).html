@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ppa :data="ary">
+            <template #cdata="childrenData">
+                <h2>我的名字:{{childrenData.nn}}</h2>
+                 <p>我的年龄:{{childrenData.age}}</p>
+                 <p>我的编号:{{childrenData.id}}</p>
+            </template>
+        </ppa>
+    </div>
+    <template id="ppa">
+        <div>
+            <ul>
+                <li v-for='(val,key) in data'>
+                    <slot
+                     name="cdata"
+                     :nn = "val.name"
+                     :age ="val.age"
+                     :id ="val.id"
+                    >{{val.name}}</solt>
+                </li>
+            </ul>
+        </div>
+    </template>
+    <script src="vue.js"></script>
+    <script>
+     /*
+     在子级solt中
+     1.定义"name"是一个唯一的标识符，
+     2.通过v-bind是去传入使用的数据，
+
+     在父级solt中
+     1.v-solt:name中的标识符 = "自定义的名字"
+       v-solt可以缩写为"#"
+     2.使用自定义的名字.xx
+       可以使用自己自定义的名字
+     */
+
+     const ppa ={
+         template:"#ppa",
+         props:['data']
+     }
+     new Vue({
+         el:"#app",
+         data:{
+             ary:[
+                 {
+                     name:'黄君成',
+                     age:24,
+                     id:0,
+                 },{
+                     name:'黄海挺',
+                     age:24,
+                     id:1,
+                 },{
+                     name:'张奎',
+                     age:23,
+                     id:2,
+                 }
+             ]
+         },
+         components:{
+             ppa
+         }
+     })
+    </script>
+</body>
+</html>

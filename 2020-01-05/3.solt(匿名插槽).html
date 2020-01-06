@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box2{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+        .box{
+            width: 100px;
+            height: 100px;
+            background:skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ppa>
+            <div class="box2">花花世界</div>
+        </ppa>
+    </div>
+     <template id="ppa">
+         <div>
+             <slot>
+                 <div class="box"></div>
+             </slot>
+         </div>
+     </template>
+     <script src="vue.js"></script>
+     <script>
+         /*
+          slot匿名插槽:
+          在开发中写什么结构就是什么结构，优点就是固定统一，缺点就是不够灵活，因为不灵活问题会自定义一些组件，来替换默认配置
+
+          匿名插槽：
+          子组件中定义slot
+          父组件中给调用的子组件双标签内填入结构
+          这个时候slot被填入结构覆盖
+
+          具名插槽：
+           可放置在函数参数的位置的javascript表达式(在支持的环境下可使用结构)。要在为插槽传入prop的时候使用。
+
+           参数：插槽名默认值是default
+           限用于：<template>
+            组件(对于一个单独的带prop的默认配置)
+
+            用法：
+            提供具名插槽或需要接收prop的插槽。
+         */
+         const ppa = {
+             template:'#ppa'
+         }
+         new Vue({
+             el:"#app",
+             components:{
+                 ppa
+             },
+
+         })
+     </script>
+</body>
+</html>

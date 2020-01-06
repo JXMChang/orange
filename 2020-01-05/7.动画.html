@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button
+         @click="onoff = !onoff"
+         >点击</button>
+         <transition>
+             <ppa v-show="onoff"></ppa>
+         </transition>
+         <hr>
+         <button
+         @click="onoff2 = !onoff2"
+         >点击</button>
+         <!-- 可以设置一个name属性，让我们能够自定义css动画 -->
+         <transition name="n">
+             <div v-show="onoff2">
+                 88888
+             </div>
+         </transition>
+    </div>
+    <template id="tk">
+        <div>你好我好大家好,广州好滴</div>
+    </template>
+    <script src="vue.js"></script>
+    <script>
+        const ppa = {
+            template:"#tk",
+        }
+        new Vue({
+            el:"#app",
+            data:{
+                onoff:false,
+                onoff2:false,
+            },
+            components:{
+                ppa
+            }
+        })
+    </script>
+</body>
+</html>

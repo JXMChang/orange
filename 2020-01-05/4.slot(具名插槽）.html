@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ppa>
+            <div slot="header">八只脚</div>
+            <div slot="body">身体万丈</div>
+            <div slot="footer">九头怪</div>
+        </ppa>
+    </div>
+    <template id="ppa">
+        <div>
+            <slot name="head">
+                <div class="head">头部</div>
+              </slot>
+              <slot name="body">
+                <div class="body">身体</div>
+              </slot>
+              <slot name="footer">
+                <div class="footer">脚</div>
+              </slot>
+        </div>
+    </template>
+    <script src="vue.js"></script>
+    <script>
+        /*
+        具名插槽：在solt标签中设置一个name属性，值随意在插入替换内容的时候，在替换标签中定义一个slot的属性值与要替换的name对应
+        */
+        const ppa = {
+            template:"#ppa",
+        }
+        new Vue({
+            el:"#app",
+            components:{
+                ppa
+            }
+        })
+    </script>
+</body>
+</html>
